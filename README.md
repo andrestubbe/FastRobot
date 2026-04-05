@@ -31,6 +31,8 @@ robot.mousePressInstant(FastRobot.BUTTON1); // 515x faster!
 | Screen Capture | 138ms/op | 64ms/op | **2.17x** |
 | Key Input | 0.21ms/op | 0.18ms/op | **1.24x** |
 
+*All FastRobot methods are optimized for maximum performance - no confusing "Instant" variants needed!*
+
 ## 🚀 Features
 
 - **Direct Hardware Access** - Zero latency mouse/keyboard (Windows)
@@ -39,6 +41,7 @@ robot.mousePressInstant(FastRobot.BUTTON1); // 515x faster!
 - **60fps+ Streaming** - Real-time screen capture (Windows)
 - **Batch Operations** - Maximum throughput
 - **Smart Loading** - Cross-platform native library (Windows only currently)
+- **Simple API** - Same method names as java.awt.Robot, all ultra-fast
 
 ## 🌍 Platform Support
 
@@ -47,12 +50,14 @@ robot.mousePressInstant(FastRobot.BUTTON1); // 515x faster!
 ## 🎮 Use Cases
 
 ```java
-// Screen zoom - 60fps+ real-time
+FastRobot robot = new FastRobot();
+
+// Screen zoom - 60fps+ real-time (all methods ultra-fast)
 ByteBuffer buffer = robot.streamScreenCapture(new Rectangle(0, 0, 800, 600));
 
-// Gaming bots - instant response
-robot.mouseMoveInstant(targetX, targetY);
-robot.mousePressInstant(FastRobot.BUTTON1);
+// Gaming bots - instant response (no "Instant" methods needed)
+robot.mouseMove(targetX, targetY);
+robot.mousePress(FastRobot.BUTTON1);
 
 // Automation - batch processing
 int[][] ops = {{0, 100, 100, 0}, {0, 200, 200, 0}};
