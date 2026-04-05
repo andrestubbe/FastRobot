@@ -18,8 +18,8 @@
 
 ```java
 FastRobot robot = new FastRobot();
-robot.mouseMoveInstant(100, 100);  // 1.41x faster
-robot.mousePressInstant(FastRobot.BUTTON1); // 515x faster!
+robot.mouseMove(100, 100);  // 1.41x faster
+robot.mousePress(FastRobot.BUTTON1); // 515x faster!
 ```
 
 ## 🎯 Performance
