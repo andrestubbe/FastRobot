@@ -36,12 +36,10 @@ robot.mousePress(FastRobot.BUTTON1); // 515x faster!
 ## 🚀 Features
 
 - **Direct Hardware Access** - Zero latency mouse/keyboard (Windows)
-- **Zero-Copy Memory** - No allocations during capture
-- **SIMD Optimized** - Parallel pixel processing  
-- **60fps+ Streaming** - Real-time screen capture (Windows)
-- **Batch Operations** - Maximum throughput
-- **Smart Loading** - Cross-platform native library (Windows only currently)
+- **Fast Screen Capture** - Optimized BitBlt operations
 - **Simple API** - Same method names as java.awt.Robot, all ultra-fast
+- **Maven Ready** - Easy dependency management
+- **Zero Bloat** - Small, focused package
 
 ## 🌍 Platform Support
 
@@ -52,16 +50,16 @@ robot.mousePress(FastRobot.BUTTON1); // 515x faster!
 ```java
 FastRobot robot = new FastRobot();
 
-// Screen zoom - 60fps+ real-time (all methods ultra-fast)
-ByteBuffer buffer = robot.streamScreenCapture(new Rectangle(0, 0, 800, 600));
+// Fast screen capture
+BufferedImage screen = robot.createScreenCapture(new Rectangle(0, 0, 800, 600));
 
-// Gaming bots - instant response (no "Instant" methods needed)
+// Gaming bots - instant response
 robot.mouseMove(targetX, targetY);
 robot.mousePress(FastRobot.BUTTON1);
 
-// Automation - batch processing
-int[][] ops = {{0, 100, 100, 0}, {0, 200, 200, 0}};
-robot.batchMouseOperations(ops);
+// Automation - fast keyboard input
+robot.keyPress(KeyEvent.VK_A);
+robot.keyRelease(KeyEvent.VK_A);
 ```
 
 ## 🔧 Build from Source
