@@ -1,4 +1,4 @@
-# FastRobot 🤖🚀
+# FastRobot 🚀🤖
 
 **Ultra-fast replacement for `java.awt.Robot` - Small, fast, no bloat**
 
@@ -74,6 +74,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**Small package, maximum speed, zero bloat.** 🤖🚀
+**Small package, maximum speed, zero bloat.** 🚀🤖
 
 *Replace slow Java with ultra-fast native performance!* 🤖
