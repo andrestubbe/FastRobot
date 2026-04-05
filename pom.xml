@@ -6,13 +6,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.fastjava</groupId>
-    <artifactId>ultrafastrobot</artifactId>
+    <artifactId>fastrobot</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>UltraFastRobot</name>
+    <name>FastRobot</name>
     <description>Ultra-fast replacement for java.awt.Robot with maximum performance optimizations</description>
-    <url>https://github.com/fastjava/ultrafastrobot</url>
+    <url>https://github.com/andrestubbe/fastrobot</url>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -153,6 +153,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub andrestubbe Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/andrestubbe/FastRobot</url>
+        </repository>
+    </distributionManagement>
 
     <profiles>
         <!-- Development Profile -->
