@@ -49,8 +49,6 @@ dependencies {
 | Screen Capture | 138ms/op | 64ms/op | **2.17x** |
 | Key Input | 0.21ms/op | 0.18ms/op | **1.24x** |
 
-*All FastRobot methods are optimized for maximum performance - no confusing "Instant" variants needed!*
-
 ## 🚀 Features
 
 - **Direct Hardware Access** - Zero latency mouse/keyboard (Windows)
