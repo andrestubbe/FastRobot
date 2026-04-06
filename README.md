@@ -1,4 +1,4 @@
-# FastRobot 🚀🤖
+# FastRobot 🚀🤖 (WIP - still traveling to Maven)
 
 **Ultra-fast replacement for `java.awt.Robot` - Small, fast, no bloat**
 
