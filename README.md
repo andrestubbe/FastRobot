@@ -2,17 +2,24 @@
 
 **Ultra-fast replacement for `java.awt.Robot` - Small, fast, no bloat**
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.fastjava/fastrobot.svg)](https://search.maven.org/artifact/com.fastjava/fastrobot)
+[![JitPack](https://jitpack.io/v/andrestubbe/FastRobot.svg)](https://jitpack.io/#andrestubbe/FastRobot)
 [![GitHub stars](https://img.shields.io/github/stars/andrestubbe/fastrobot.svg)](https://github.com/andrestubbe/fastrobot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## ⚡ One-Line Setup
 
 ```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
 <dependency>
-    <groupId>com.fastjava</groupId>
+    <groupId>io.github.andrestubbe</groupId>
     <artifactId>fastrobot</artifactId>
-    <version>1.0.0</version>
+    <version>v1.0.0</version>
 </dependency>
 ```
 
@@ -20,6 +27,17 @@
 FastRobot robot = new FastRobot();
 robot.mouseMove(100, 100);  // 1.41x faster
 robot.mousePress(FastRobot.BUTTON1); // 515x faster!
+```
+
+### Gradle
+```groovy
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'io.github.andrestubbe:fastrobot:v1.0.0'
+}
 ```
 
 ## 🎯 Performance
