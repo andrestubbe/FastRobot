@@ -1,14 +1,32 @@
-# FastRobot — Ultra-Fast Native Automation for Java 🚀🤖
+# FastRobot — Ultra-Fast Java Screen Capture & Automation Library 🚀🤖
 
-**Drop-in replacement for `java.awt.Robot` with 10-17× faster screen capture and native-speed input**
+**Drop-in replacement for `java.awt.Robot` with 10-17× faster screen capture, 515× faster mouse input, and 60-240fps video streaming for Windows**
 
 [![JitPack](https://jitpack.io/v/andrestubbe/FastRobot.svg)](https://jitpack.io/#andrestubbe/FastRobot)
-[![GitHub stars](https://img.shields.io/github/stars/andrestubbe/fastrobot.svg)](https://github.com/andrestubbe/fastrobot)
+[![GitHub stars](https://img.shields.io/github/stars/andrestubbe/fastrobot.svg)](https://github.com/andrestubbe/fastrobot/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-FastRobot is a **high-performance Java library** that replaces `java.awt.Robot` with a **native Windows backend** using DirectInput, GDI BitBlt, and JNI. Built for **low-latency automation**, **real-time screen capture**, **gaming bots**, and **computer vision** applications.
+FastRobot is a **high-performance Java automation library** that replaces `java.awt.Robot` with a **native Windows backend** using DirectInput, GDI BitBlt, and DirectX DXGI. Built for **low-latency automation**, **real-time screen capture**, **gaming bots**, **test automation**, and **computer vision** applications.
+
+**Keywords:** java robot alternative, fast screen capture, directx screen recording, java automation library, windows bot framework, gdi bitblt, directinput, hardware accelerated capture, 60fps screen recording java, jni native performance
 
 If you need **60fps+ screen recording**, **instant mouse/keyboard response**, or **high-frequency automation**, FastRobot delivers native-level performance with Java simplicity.
+
+---
+
+## 📋 Table of Contents
+
+- [Why FastRobot?](#why-fastrobot)
+- [Key Features](#key-features)
+- [Performance Benchmarks](#performance-benchmarks)
+- [Installation](#installation)
+- [Quick Start Guide](#quick-start-guide)
+- [API Reference](#api-reference)
+- [Use Cases](#use-cases)
+- [Build from Source](#build-from-source)
+- [Platform Support](#platform-support)
+- [Architecture](#architecture)
+- [License](#license)
 
 ---
 
