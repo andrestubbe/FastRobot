@@ -134,6 +134,106 @@ JNIEXPORT jint JNICALL Java_fastrobot_FastRobot_getScreenHeight(JNIEnv *env, job
     return GetSystemMetrics(SM_CYSCREEN);
 }
 
+// === v2.0: High-FPS Async Streaming Capture ===
+#include "DXGICapture.h"
+#include <thread>
+#include <atomic>
+
+static fastrobot::DXGICapture* g_capture = nullptr;
+static std::thread g_captureThread;
+static std::atomic<bool> g_isRunning(false);
+
+static void CaptureLoop() {
+    while (g_isRunning && g_capture) {
+        g_capture->CaptureFrame();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Small delay to prevent CPU overload
+    }
+}
+
+JNIEXPORT jboolean JNICALL Java_fastrobot_FastRobot_startScreenStream(JNIEnv *env, jobject obj, jint x, jint y, jint width, jint height) {
+    // Stop existing capture if any
+    if (g_capture) {
+        Java_fastrobot_FastRobot_stopScreenStream(env, obj);
+    }
+    
+    // Create new capture instance
+    g_capture = new fastrobot::DXGICapture();
+    
+    if (!g_capture->Initialize(x, y, width, height)) {
+        delete g_capture;
+        g_capture = nullptr;
+        return JNI_FALSE;
+    }
+    
+    if (!g_capture->StartCapture()) {
+        delete g_capture;
+        g_capture = nullptr;
+        return JNI_FALSE;
+    }
+    
+    // Start capture thread
+    g_isRunning = true;
+    g_captureThread = std::thread(CaptureLoop);
+    
+    return JNI_TRUE;
+}
+
+JNIEXPORT jintArray JNICALL Java_fastrobot_FastRobot_getNextFrame(JNIEnv *env, jobject obj) {
+    if (!g_capture) {
+        return nullptr;
+    }
+    
+    fastrobot::FrameData frame = g_capture->GetNextFrame();
+    if (frame.data.empty()) {
+        return nullptr;
+    }
+    
+    // Convert RGBA to RGB int array
+    int pixelCount = frame.width * frame.height;
+    jintArray result = env->NewIntArray(pixelCount);
+    if (result == nullptr) {
+        return nullptr;
+    }
+    
+    jint* pixels = new jint[pixelCount];
+    for (int i = 0; i < pixelCount; i++) {
+        // Convert BGRA to RGB (ignore alpha)
+        pixels[i] = (frame.data[i * 4 + 2] << 16) |  // R
+                    (frame.data[i * 4 + 1] << 8)  |  // G
+                    (frame.data[i * 4 + 0]);         // B
+    }
+    
+    env->SetIntArrayRegion(result, 0, pixelCount, pixels);
+    delete[] pixels;
+    
+    return result;
+}
+
+JNIEXPORT jboolean JNICALL Java_fastrobot_FastRobot_hasNewFrame(JNIEnv *env, jobject obj) {
+    if (!g_capture) {
+        return JNI_FALSE;
+    }
+    return g_capture->HasNewFrame() ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT void JNICALL Java_fastrobot_FastRobot_stopScreenStream(JNIEnv *env, jobject obj) {
+    if (g_capture) {
+        g_isRunning = false;
+        if (g_captureThread.joinable()) {
+            g_captureThread.join();
+        }
+        delete g_capture;
+        g_capture = nullptr;
+    }
+}
+
+JNIEXPORT jdouble JNICALL Java_fastrobot_FastRobot_getStreamFPS(JNIEnv *env, jobject obj) {
+    if (!g_capture) {
+        return 0.0;
+    }
+    return g_capture->GetCurrentFPS();
+}
+
 // DLL entry point
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
     switch (ul_reason_for_call) {

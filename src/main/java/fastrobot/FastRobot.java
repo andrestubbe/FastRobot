@@ -51,6 +51,49 @@ public class FastRobot {
     public native int getScreenWidth();
     public native int getScreenHeight();
     
+    // === v2.0: High-FPS Async Streaming Capture (60fps-240fps) ===
+    /**
+     * Start async screen streaming capture for high-FPS recording (60fps-240fps).
+     * Uses DXGI Desktop Duplication API for hardware-accelerated capture.
+     * 
+     * @param x X coordinate of capture region
+     * @param y Y coordinate of capture region  
+     * @param width Width of capture region
+     * @param height Height of capture region
+     * @return true if streaming started successfully
+     */
+    public native boolean startScreenStream(int x, int y, int width, int height);
+    
+    /**
+     * Get next frame from the streaming capture (non-blocking).
+     * Returns null if no new frame available yet.
+     * Frame data is RGBA format: int[] = {R, G, B, A, R, G, B, A, ...}
+     * 
+     * @return int[] pixel data or null if no new frame
+     */
+    public native int[] getNextFrame();
+    
+    /**
+     * Check if a new frame is available without retrieving it.
+     * Useful for polling at high frequency.
+     * 
+     * @return true if new frame ready
+     */
+    public native boolean hasNewFrame();
+    
+    /**
+     * Stop the streaming capture and release resources.
+     */
+    public native void stopScreenStream();
+    
+    /**
+     * Get current streaming FPS (frames per second).
+     * Call this periodically to monitor performance.
+     * 
+     * @return current FPS
+     */
+    public native double getStreamFPS();
+    
     // === Convenience methods (Java-side wrappers) ===
     
     /**
