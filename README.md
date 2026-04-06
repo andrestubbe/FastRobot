@@ -1,6 +1,6 @@
 # FastRobot — Ultra-Fast Native Automation for Java 🚀🤖
 
-**Drop-in replacement for `java.awt.Robot` with 515× faster screen capture and native-speed input**
+**Drop-in replacement for `java.awt.Robot` with 10-17× faster screen capture and native-speed input**
 
 [![JitPack](https://jitpack.io/v/andrestubbe/FastRobot.svg)](https://jitpack.io/#andrestubbe/FastRobot)
 [![GitHub stars](https://img.shields.io/github/stars/andrestubbe/fastrobot.svg)](https://github.com/andrestubbe/fastrobot)
@@ -29,7 +29,8 @@ The result: **10-17× speedup** over standard Java Robot.
 
 ## 🔥 Key Features
 
-- **515× faster screen capture** than `java.awt.Robot`
+- **10-17× faster screen capture** than `java.awt.Robot` (60-240fps streaming)
+- **515× faster mouse click latency** (DirectInput vs AWT event queue)
 - **60fps-240fps streaming** with DXGI hardware acceleration (v2.0)
 - **DirectInput mouse/keyboard** — no OS throttling
 - **Zero GC pressure** — native buffers, no Java2D overhead
