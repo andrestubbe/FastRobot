@@ -1,13 +1,23 @@
 # FastRobot — High-Performance Java Automation & DirectX Screen Capture (10-17× Faster than Robot)
 
+```
+███████╗ █████╗ ███████╗████████╗██████╗  ██████╗ ██████╗  ██████╗ ████████╗
+██╔════╝██╔══██╗██╔════╝╚══██╔══╝██╔══██╗██╔═══██╗██╔══██╗██╔═══██╗╚══██╔══╝
+█████╗  ███████║███████╗   ██║   ██████╔╝██║   ██║██████╔╝██║   ██║   ██║   
+██╔══╝  ██╔══██║╚════██║   ██║   ██╔══██╗██║   ██║██╔══██╗██║   ██║   ██║   
+███████╗██║  ██║███████║   ██║   ██║  ██║╚██████╔╝██║  ██║╚██████╔╝   ██║   
+╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝    ╚═╝   
+```
+
 **Drop-in replacement for `java.awt.Robot` with 10-17× faster screen capture, 515× faster mouse input, and 60fps+ real-time streaming for Windows**
 
+[![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+[![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![JitPack](https://jitpack.io/v/andrestubbe/FastRobot.svg)](https://jitpack.io/#andrestubbe/FastRobot)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.andrestubbe/fastrobot.svg)](https://search.maven.org/artifact/io.github.andrestubbe/fastrobot)
-[![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
-[![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![GitHub stars](https://img.shields.io/github/stars/andrestubbe/fastrobot.svg)](https://github.com/andrestubbe/fastrobot/stargazers)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ![FastRobot Desktop Stream Demo](docs/desktop-stream-demo.png)
 
@@ -41,6 +51,10 @@ If you need **60fps+ screen recording**, **instant mouse/keyboard response**, or
 - [Examples](#examples)
 - [Build from Source](#build-from-source)
 - [Platform Support](#platform-support)
+- [Who Is This For?](#who-is-this-for)
+- [Limitations](#limitations)
+- [Contributing](#contributing)
+- [Version History](#version-history)
 - [FAQ](#faq)
 - [License](#license)
 
@@ -51,10 +65,10 @@ If you need **60fps+ screen recording**, **instant mouse/keyboard response**, or
 `java.awt.Robot` is convenient but slow. Its screen capture is bottlenecked by Java2D (15-30fps max), and input has OS-level throttling.
 
 FastRobot solves this with:
-- **GDI BitBlt** for ultra-fast screen capture (60fps+ capable)
-- **DirectInput** for zero-latency keyboard/mouse events  
+- **GDI BitBlt** for ultra-fast screen capture (60fps+ capable) — see [Performance Benchmarks](#performance-benchmarks)
+- **DirectInput** for zero-latency keyboard/mouse events — see [FastRobot vs java.awt.Robot](#fastrobot-vs-javaawtrobot)
 - **Native memory buffers** to avoid GC overhead
-- **Hardware acceleration** via DXGI Desktop Duplication API
+- **Hardware acceleration** via [DXGI Desktop Duplication API](https://docs.microsoft.com/en-us/windows/win32/direct3ddxgi/desktop-dup-api)
 - **Drop-in API** — minimal code changes required
 
 ---
@@ -393,6 +407,71 @@ mvn package
 
 ---
 
+## Who Is This For?
+
+FastRobot is designed for developers who need **high-frequency, low-latency automation**, including:
+
+- **Game automation developers** — non-invasive screen capture without DLL injection
+- **Bot developers** — high-speed pixel reading and input simulation
+- **Computer vision engineers** — real-time frame capture for AI/ML pipelines
+- **UI automation testers** — fast screen analysis and interaction
+- **Macro and workflow automation** — reliable, fast input/output control
+- **High-performance Java applications** — anything needing better than `java.awt.Robot`
+
+If you need **speed**, **precision**, and **stability**, this library is for you.
+
+---
+
+## Limitations
+
+FastRobot is extremely fast — but intentionally focused:
+
+- **Windows-only** — requires DirectX 11+ and Windows 10/11
+- **Not cross-platform** — Linux and macOS are not supported
+- **Not suitable for anti-cheat-protected games** — screen capture is detectable
+- **Requires GPU support** — Desktop Duplication API needs compatible graphics
+- **Capture performance depends on monitor resolution** — 4K capture is slower than 1080p
+- **Single monitor only** — multi-monitor setups capture primary display only
+
+---
+
+## Contributing
+
+Contributions are welcome!
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Add tests where appropriate
+4. Submit a pull request
+
+Ideas especially welcome:
+
+- Linux backend (Wayland + DMA-BUF)
+- macOS Metal backend
+- GPU-accelerated image processing
+- Additional JNI performance improvements
+- More examples and documentation
+
+See [Architecture](#architecture) for technical details.
+
+---
+
+## Version History
+
+### v2.0.0 — Current Release
+- **DXGI Desktop Duplication API** — hardware-accelerated streaming
+- **60fps+ capture** — matches monitor refresh rate
+- **C++ scaling** — `getNextFrameScaled()` and `getNextFrameScaledAA()` with anti-aliasing
+- **Letterbox demo** — `DesktopStreamDemo` with aspect ratio preservation
+- **PNG recording** — `PNGRecorder` for numbered frame output
+
+### v1.0.0 — Initial Release
+- GDI BitBlt screen capture
+- DirectInput mouse/keyboard
+- Basic JNI wrapper for `java.awt.Robot` replacement
+
+---
+
 ## FAQ
 
 ### Is FastRobot faster than Java Robot?
@@ -438,3 +517,9 @@ Your support helps maintain and improve FastRobot!
 **Small package. Maximum speed. Zero bloat.** 🚀🤖
 
 *Replace slow Java with ultra-fast native performance!*
+
+---
+
+## Keywords
+
+**SEO Tags:** java automation, java robot alternative, directx screen capture java, fast pixel read java, java bot library, java automation library, low latency input java, jni performance java, high fps screen capture java, java computer vision tools, java desktop duplication, java dxgi, java directx automation, java gaming bot, java screen recording, windows automation java
