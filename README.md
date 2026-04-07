@@ -481,9 +481,8 @@ See [Architecture](#architecture) for technical details.
 Replace `new Robot()` with `new FastRobot()` — the API is mostly compatible. See [API Reference](#api-reference) for details.
 
 ### Related Projects
-- [Java Robot](https://docs.oracle.com/javase/8/docs/api/java/awt/Robot.html) — Standard Java automation
-- [JNA](https://github.com/java-native-access/jna) — Java Native Access
-- [LWJGL](https://www.lwjgl.org/) — Lightweight Java Game Library
+- [Java Robot](https://docs.oracle.com/javase/8/docs/api/java/awt/Robot.html) — Standard Java automation (the library FastRobot replaces)
+- [Microsoft DXGI Desktop Duplication API](https://docs.microsoft.com/en-us/windows/win32/direct3ddxgi/desktop-dup-api) — Hardware-accelerated screen capture technology
 
 ---
 
