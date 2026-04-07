@@ -87,7 +87,7 @@ FastRobot solves this with:
 | Keyboard Input | ~0.21ms | **~0.18ms** | **1.24×** |
 | **Streaming FPS** | ~7fps | **60fps+** | **8-10×** |
 
-*Measured on Surface Pro 8, Windows 11, Java 17, 120Hz display*
+*Measured on Windows 11, Intel Core i7, Java 17, 120Hz display*
 
 ---
 
@@ -140,6 +140,13 @@ dependencies {
 ---
 
 ## Quick Start
+
+### Quick Start (No Maven Required)
+
+1. Download pre-compiled DLL: [fastrobot.dll](https://github.com/andrestubbe/FastRobot/releases/download/v2.0.0/fastrobot.dll)
+2. Download JAR: [fastrobot.jar](https://github.com/andrestubbe/FastRobot/releases/download/v2.0.0/fastrobot-2.0.0.jar)
+3. Place both files in same folder
+4. Run demos directly: `java -cp ".;fastrobot-2.0.0.jar" fastrobot.DesktopStreamDemo`
 
 ### Basic Usage
 
