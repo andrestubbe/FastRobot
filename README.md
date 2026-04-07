@@ -1,12 +1,24 @@
-# FastRobot — Ultra-Fast Java Screen Capture & Automation Library 🚀🤖
+# FastRobot — High-Performance Java Automation & DirectX Screen Capture (10-17× Faster than Robot)
 
 **Drop-in replacement for `java.awt.Robot` with 10-17× faster screen capture, 515× faster mouse input, and 60-240fps video streaming for Windows**
 
 [![JitPack](https://jitpack.io/v/andrestubbe/FastRobot.svg)](https://jitpack.io/#andrestubbe/FastRobot)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.andrestubbe/fastrobot.svg)](https://search.maven.org/artifact/io.github.andrestubbe/fastrobot)
+[![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
+[![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![GitHub stars](https://img.shields.io/github/stars/andrestubbe/fastrobot.svg)](https://github.com/andrestubbe/fastrobot/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ![FastRobot Desktop Stream Demo](docs/desktop-stream-demo.png)
+
+```java
+// Quick Start — Ultra-fast screen capture & input
+FastRobot robot = new FastRobot();
+robot.mouseMove(500, 300);
+Color pixel = robot.getPixelColor(100, 200);
+// Start 60fps streaming
+robot.startScreenStream(0, 0, 1920, 1080);
+```
 
 FastRobot is a **high-performance Java automation library** that replaces `java.awt.Robot` with a **native Windows backend** using DirectInput, GDI BitBlt, and DirectX DXGI. Built for **low-latency automation**, **real-time screen capture**, **gaming bots**, **test automation**, and **computer vision** applications.
 
@@ -29,7 +41,7 @@ If you need **60fps+ screen recording**, **instant mouse/keyboard response**, or
 - [Examples](#examples)
 - [Build from Source](#build-from-source)
 - [Platform Support](#platform-support)
-- [Architecture](#architecture)
+- [FAQ](#faq)
 - [License](#license)
 
 ---
@@ -378,6 +390,30 @@ mvn package
 | macOS | — | ❌ Not planned |
 
 **Windows-only by design** — we focus on maximum performance on the most common gaming/automation platform.
+
+---
+
+## FAQ
+
+### Is FastRobot faster than Java Robot?
+**Yes.** FastRobot is 10-17× faster for screen capture and 515× faster for mouse input using native DirectInput and GDI BitBlt.
+
+### Does FastRobot use DirectX?
+**Yes.** FastRobot v2.0 uses the **DXGI Desktop Duplication API** for hardware-accelerated screen streaming at 60-240fps.
+
+### Can I use FastRobot for game bots?
+**Yes.** FastRobot is designed for low-latency automation with DirectInput for instant mouse/keyboard control, ideal for gaming bots.
+
+### Is FastRobot cross-platform?
+**No.** FastRobot is Windows-only (Windows 10/11) to maximize performance using native Win32 APIs.
+
+### How do I migrate from java.awt.Robot?
+Replace `new Robot()` with `new FastRobot()` — the API is mostly compatible. See [API Reference](#api-reference) for details.
+
+### Related Projects
+- [Java Robot](https://docs.oracle.com/javase/8/docs/api/java/awt/Robot.html) — Standard Java automation
+- [JNA](https://github.com/java-native-access/jna) — Java Native Access
+- [LWJGL](https://www.lwjgl.org/) — Lightweight Java Game Library
 
 ---
 
