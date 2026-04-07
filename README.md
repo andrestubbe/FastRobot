@@ -143,10 +143,8 @@ dependencies {
 
 ### Quick Start (No Maven Required)
 
-1. Download JAR with bundled native library: [fastrobot.jar](https://github.com/andrestubbe/FastRobot/releases/download/v2.0.1/fastrobot-2.0.1.jar)
-2. Run demos directly: `java -cp ".;fastrobot-2.0.1.jar" fastrobot.DesktopStreamDemo`
-
-*The JAR automatically extracts the native DLL to a temporary directory at runtime.*
+1. Download JAR: [fastrobot.jar](https://github.com/andrestubbe/FastRobot/releases/download/v2.0.2/fastrobot-2.0.2.jar)
+2. Run demos directly: `java -cp ".;fastrobot-2.0.2.jar" fastrobot.DesktopStreamDemo`
 
 ### Basic Usage
 
