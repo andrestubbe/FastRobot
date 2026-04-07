@@ -28,7 +28,7 @@ jobs:
           native\ultrafastrobot_UltraFastRobot.cpp user32.lib gdi32.lib ^
           /Fe:build\fastrobot.dll
     
-    - name: Build JAR
+    - name: Build JAR with bundled DLL
       run: mvn -B package -DskipTests
     
     - name: Upload Release Assets
@@ -36,7 +36,6 @@ jobs:
       with:
         files: |
           target/fastrobot-*.jar
-          build/fastrobot.dll
         name: Release ${{ github.ref_name }}
         draft: false
         prerelease: false

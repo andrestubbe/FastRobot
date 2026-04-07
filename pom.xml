@@ -141,9 +141,9 @@
                                 <resource>
                                     <directory>build</directory>
                                     <includes>
-                                        <include>*.dll</include>
-                                        <include>*.so</include>
-                                        <include>*.dylib</include>
+                                        <include>fastrobot.dll</include>
+                                        <include>libfastrobot.so</include>
+                                        <include>libfastrobot.dylib</include>
                                     </includes>
                                 </resource>
                             </resources>

@@ -13,7 +13,7 @@ import java.nio.file.StandardCopyOption;
  */
 public class NativeLibraryLoader {
     
-    private static final String LIBRARY_NAME = "fastrobotultra";
+    private static final String LIBRARY_NAME = "fastrobot";
     private static boolean loaded = false;
     
     /**
