@@ -87,7 +87,7 @@ FastRobot solves this with:
 | Keyboard Input | ~0.21ms | **~0.18ms** | **1.24×** |
 | **Streaming FPS** | ~7fps | **60fps+** | **8-10×** |
 
-*Measured on Windows 11, Ryzen 7, Java 17, 144Hz monitor*
+*Measured on Surface Pro 8, Windows 11, Java 17, 120Hz display*
 
 ---
 
@@ -96,7 +96,7 @@ FastRobot solves this with:
 | Feature | java.awt.Robot | FastRobot |
 |---------|----------------|----------|
 | Screen capture backend | Java2D (slow) | GDI BitBlt + DXGI (fast) |
-| Max capture FPS | ~7fps | **60-240fps** |
+| Max capture FPS | ~7fps | **60fps+** |
 | Input simulation | OS-layered | DirectInput (direct) |
 | Latency | High (8-16ms) | Low (1-2ms) |
 | GC pressure | High | None (native buffers) |
