@@ -1,6 +1,6 @@
 # FastRobot — High-Performance Java Automation & DirectX Screen Capture (10-17× Faster than Robot)
 
-**Drop-in replacement for `java.awt.Robot` with 10-17× faster screen capture, 515× faster mouse input, and 60-240fps video streaming for Windows**
+**Drop-in replacement for `java.awt.Robot` with 10-17× faster screen capture, 515× faster mouse input, and 60fps+ real-time streaming for Windows**
 
 [![JitPack](https://jitpack.io/v/andrestubbe/FastRobot.svg)](https://jitpack.io/#andrestubbe/FastRobot)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.andrestubbe/fastrobot.svg)](https://search.maven.org/artifact/io.github.andrestubbe/fastrobot)
@@ -51,7 +51,7 @@ If you need **60fps+ screen recording**, **instant mouse/keyboard response**, or
 `java.awt.Robot` is convenient but slow. Its screen capture is bottlenecked by Java2D (15-30fps max), and input has OS-level throttling.
 
 FastRobot solves this with:
-- **GDI BitBlt** for ultra-fast screen capture (60-240fps capable)
+- **GDI BitBlt** for ultra-fast screen capture (60fps+ capable)
 - **DirectInput** for zero-latency keyboard/mouse events  
 - **Native memory buffers** to avoid GC overhead
 - **Hardware acceleration** via DXGI Desktop Duplication API
@@ -61,9 +61,9 @@ FastRobot solves this with:
 
 ## Key Features
 
-- **10-17× faster screen capture** than `java.awt.Robot` (60-240fps streaming)
+- **10-17× faster screen capture** than `java.awt.Robot` (60fps+ streaming, up to monitor refresh rate)
 - **515× faster mouse click latency** (DirectInput vs AWT event queue)
-- **60fps-240fps streaming** with DXGI hardware acceleration
+- **60fps+ streaming** with DXGI hardware acceleration (matches monitor refresh rate)
 - **DirectInput mouse/keyboard** — no OS throttling
 - **Zero GC pressure** — native buffers, no Java2D overhead
 - **Drop-in API** — familiar Robot-style methods
@@ -80,7 +80,7 @@ FastRobot solves this with:
 | Mouse Click Latency | ~0.24ms | **~0.0005ms** | **515×** |
 | Mouse Move | ~0.29ms | **~0.20ms** | **1.41×** |
 | Keyboard Input | ~0.21ms | **~0.18ms** | **1.24×** |
-| **Streaming FPS** | ~7fps | **60-240fps** | **10-34×** |
+| **Streaming FPS** | ~7fps | **60fps+** | **8-10×** |
 
 *Measured on Windows 11, Ryzen 7, Java 17, 144Hz monitor*
 
@@ -399,7 +399,7 @@ mvn package
 **Yes.** FastRobot is 10-17× faster for screen capture and 515× faster for mouse input using native DirectInput and GDI BitBlt.
 
 ### Does FastRobot use DirectX?
-**Yes.** FastRobot v2.0 uses the **DXGI Desktop Duplication API** for hardware-accelerated screen streaming at 60-240fps.
+**Yes.** FastRobot v2.0 uses the **DXGI Desktop Duplication API** for hardware-accelerated screen streaming at 60fps+ (matches your monitor's refresh rate).
 
 ### Can I use FastRobot for game bots?
 **Yes.** FastRobot is designed for low-latency automation with DirectInput for instant mouse/keyboard control, ideal for gaming bots.
