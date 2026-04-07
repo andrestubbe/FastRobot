@@ -356,10 +356,16 @@ mvn package
 ## API Reference
 
 ### Mouse Operations
-- `mouseMove(int x, int y)` — Instant cursor positioning
+- `mouseMove(int x, int y)` — Instant cursor positioning (absolute)
+- `mouseMoveRelative(int dx, int dy)` — Move by delta (relative)
+- `getMousePosition()` — Get current cursor location
+- `getMousePos()` — Returns `java.awt.Point`
 - `mousePress(int buttons)` — Direct hardware button press
 - `mouseRelease(int buttons)` — Direct hardware button release
+- `mouseClick(int buttons)` — Press + release (convenience)
+- `mouseDoubleClick(int buttons)` — Two clicks with Windows timing
 - `mouseWheel(int wheelRotation)` — Precise wheel control
+- `smoothMouseMove(int x, int y, int durationMs)` — Human-like curved movement
 
 ### Keyboard Operations
 - `keyPress(int keycode)` — Zero-latency key press

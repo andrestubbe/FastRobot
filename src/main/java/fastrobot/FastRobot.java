@@ -1,5 +1,6 @@
 package fastrobot;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -35,9 +36,11 @@ public class FastRobot {
     
     // === Mouse operations ===
     public native void mouseMove(int x, int y);
+    public native void mouseMoveRelative(int dx, int dy);
     public native void mousePress(int buttons);
     public native void mouseRelease(int buttons);
     public native void mouseWheel(int wheelRotation);
+    public native int[] getMousePosition(); // Returns [x, y]
     
     // === Keyboard operations ===
     public native void keyPress(int keycode);
@@ -128,6 +131,64 @@ public class FastRobot {
         BufferedImage image = new BufferedImage(screenRect.width, screenRect.height, BufferedImage.TYPE_INT_RGB);
         image.setRGB(0, 0, screenRect.width, screenRect.height, pixels, 0, screenRect.width);
         return image;
+    }
+    
+    /**
+     * Click mouse button (press + release with minimal delay).
+     * @param buttons BUTTON1, BUTTON2, or BUTTON3
+     */
+    public void mouseClick(int buttons) {
+        mousePress(buttons);
+        try { Thread.sleep(10); } catch (InterruptedException e) { }
+        mouseRelease(buttons);
+    }
+    
+    /**
+     * Double-click mouse button (two clicks with Windows double-click timing).
+     * @param buttons BUTTON1, BUTTON2, or BUTTON3
+     */
+    public void mouseDoubleClick(int buttons) {
+        mouseClick(buttons);
+        try { Thread.sleep(50); } catch (InterruptedException e) { } // Windows default double-click time
+        mouseClick(buttons);
+    }
+    
+    /**
+     * Smooth mouse movement to target position (human-like).
+     * @param targetX Target X coordinate
+     * @param targetY Target Y coordinate  
+     * @param durationMs Total movement duration in milliseconds
+     */
+    public void smoothMouseMove(int targetX, int targetY, int durationMs) {
+        int[] pos = getMousePosition();
+        int startX = pos[0];
+        int startY = pos[1];
+        
+        int steps = Math.max(10, durationMs / 10); // At least 10 steps, one per 10ms
+        long stepDelay = durationMs / steps;
+        
+        for (int i = 0; i <= steps; i++) {
+            double t = (double) i / steps;
+            // Ease-in-out interpolation
+            t = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+            
+            int x = (int) (startX + (targetX - startX) * t);
+            int y = (int) (startY + (targetY - startY) * t);
+            mouseMove(x, y);
+            
+            if (i < steps) {
+                try { Thread.sleep(stepDelay); } catch (InterruptedException e) { }
+            }
+        }
+    }
+    
+    /**
+     * Get current mouse position.
+     * @return Point with x, y coordinates
+     */
+    public Point getMousePos() {
+        int[] pos = getMousePosition();
+        return new Point(pos[0], pos[1]);
     }
     
     // === Button constants (same as java.awt.InputEvent) ===

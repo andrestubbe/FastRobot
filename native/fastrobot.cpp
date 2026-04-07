@@ -53,6 +53,24 @@ JNIEXPORT void JNICALL Java_fastrobot_FastRobot_mouseWheel(JNIEnv *env, jobject 
     SendInput(1, &input, sizeof(INPUT));
 }
 
+JNIEXPORT void JNICALL Java_fastrobot_FastRobot_mouseMoveRelative(JNIEnv *env, jobject obj, jint dx, jint dy) {
+    POINT pt;
+    GetCursorPos(&pt);
+    SetCursorPos(pt.x + dx, pt.y + dy);
+}
+
+JNIEXPORT jintArray JNICALL Java_fastrobot_FastRobot_getMousePosition(JNIEnv *env, jobject obj) {
+    POINT pt;
+    GetCursorPos(&pt);
+    
+    jintArray result = env->NewIntArray(2);
+    if (result != NULL) {
+        jint coords[2] = { pt.x, pt.y };
+        env->SetIntArrayRegion(result, 0, 2, coords);
+    }
+    return result;
+}
+
 JNIEXPORT void JNICALL Java_fastrobot_FastRobot_keyPress(JNIEnv *env, jobject obj, jint keycode) {
     INPUT input = {};
     input.type = INPUT_KEYBOARD;

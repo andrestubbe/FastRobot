@@ -6,9 +6,11 @@ extern "C" {
 
 // Mouse operations
 JNIEXPORT void JNICALL Java_fastrobot_FastRobot_mouseMove(JNIEnv *env, jobject obj, jint x, jint y);
+JNIEXPORT void JNICALL Java_fastrobot_FastRobot_mouseMoveRelative(JNIEnv *env, jobject obj, jint dx, jint dy);
 JNIEXPORT void JNICALL Java_fastrobot_FastRobot_mousePress(JNIEnv *env, jobject obj, jint buttons);
 JNIEXPORT void JNICALL Java_fastrobot_FastRobot_mouseRelease(JNIEnv *env, jobject obj, jint buttons);
 JNIEXPORT void JNICALL Java_fastrobot_FastRobot_mouseWheel(JNIEnv *env, jobject obj, jint wheelRotation);
+JNIEXPORT jintArray JNICALL Java_fastrobot_FastRobot_getMousePosition(JNIEnv *env, jobject obj);
 
 // Keyboard operations
 JNIEXPORT void JNICALL Java_fastrobot_FastRobot_keyPress(JNIEnv *env, jobject obj, jint keycode);
