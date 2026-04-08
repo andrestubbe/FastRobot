@@ -143,8 +143,8 @@ dependencies {
 
 ### Quick Start (No Maven Required)
 
-1. Download JAR: [fastrobot.jar](https://github.com/andrestubbe/FastRobot/releases/download/v2.0.2/fastrobot-2.0.2.jar)
-2. Run demos directly: `java -cp ".;fastrobot-2.0.2.jar" fastrobot.DesktopStreamDemo`
+1. Download JAR: [fastrobot-2.0.0.jar](https://github.com/andrestubbe/FastRobot/releases/download/v2.0.0/fastrobot-2.0.0.jar)
+2. Run demos directly: `java -cp ".;fastrobot-2.0.0.jar" fastrobot.DesktopStreamDemo`
 
 ### Basic Usage
 
