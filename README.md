@@ -119,9 +119,9 @@ FastRobot solves this with:
 </repositories>
 
 <dependency>
-    <groupId>io.github.andrestubbe</groupId>
+    <groupId>com.github.andrestubbe</groupId>
     <artifactId>fastrobot</artifactId>
-    <version>2.0.0</version>
+    <version>v2.0.0</version>
 </dependency>
 ```
 
@@ -133,7 +133,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.github.andrestubbe:fastrobot:2.0.0'
+    implementation 'com.github.andrestubbe:fastrobot:v2.0.0'
 }
 ```
 
