@@ -521,6 +521,15 @@ Your support helps maintain and improve FastRobot!
 
 ---
 
+## Related Projects
+
+- [FastHotkey](https://github.com/andrestubbe/FastHotkey) - Ultra-fast global hotkey library
+- [FastClipboard](https://github.com/andrestubbe/FastClipboard) - Ultra-fast clipboard access
+- [FastGraphics](https://github.com/andrestubbe/FastGraphics) - GPU-accelerated graphics
+- [FastTheme](https://github.com/andrestubbe/FastTheme) - OS-aware Display/Theme monitor
+
+---
+
 ## Keywords
 
 **SEO Tags:** java automation, java robot alternative, directx screen capture java, fast pixel read java, java bot library, java automation library, low latency input java, jni performance java, high fps screen capture java, java computer vision tools, java desktop duplication, java dxgi, java directx automation, java gaming bot, java screen recording, windows automation java
