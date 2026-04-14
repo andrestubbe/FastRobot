@@ -43,8 +43,14 @@ dependencies {
 }
 ```
 
-**Direct Download:**
-- [fastrobot-2.1.0.jar](https://github.com/andrestubbe/FastRobot/releases/download/v2.1.0/fastrobot-2.1.0.jar)
+**Direct Download (both required):**
+- [fastrobot-2.1.0.jar](https://github.com/andrestubbe/FastRobot/releases/download/v2.1.0/fastrobot-2.1.0.jar) — Main library with DLL
+- [fastcore-1.0.0.jar](https://github.com/andrestubbe/FastCore/releases/download/v1.0.0/fastcore-1.0.0.jar) — JNI loader (required dependency)
+
+```bash
+# Run with both JARs
+java -cp "fastrobot-2.1.0.jar:fastcore-1.0.0.jar:." YourApp
+```
 
 ### Basic Usage
 

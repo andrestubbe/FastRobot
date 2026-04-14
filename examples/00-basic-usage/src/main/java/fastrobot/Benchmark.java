@@ -1,5 +1,6 @@
 package fastrobot;
 
+import fastcore.FastCore;
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -24,8 +25,8 @@ public class Benchmark {
     public static void main(String[] args) throws Exception {
         System.out.println("=== FastRobot Benchmark ===\n");
         
-        // Load native library
-        System.loadLibrary("fastrobot");
+        // Load native library via FastCore
+        FastCore.loadLibrary("fastrobot");
         
         Robot awtRobot = new Robot();
         FastRobot fastRobot = new FastRobot();
