@@ -235,9 +235,24 @@ MIT License — free for commercial and private use. See [LICENSE](LICENSE) for 
 
 ## Related Projects
 
-- [FastCore](https://github.com/andrestubbe/FastCore) — Unified JNI loader
+**Core Infrastructure:**
+- [FastCore](https://github.com/andrestubbe/FastCore) — Unified JNI loader for all FastJava modules
+
+**Input & Automation:**
 - [FastHotkey](https://github.com/andrestubbe/FastHotkey) — Global hotkey library
-- [FastClipboard](https://github.com/andrestubbe/FastClipboard) — Fast clipboard access
+- [FastTouch](https://github.com/andrestubbe/FastTouch) — Multi-touch gesture recognition
+
+**System Integration:**
+- [FastClipboard](https://github.com/andrestubbe/FastClipboard) — Ultra-fast clipboard access
+- [FastTheme](https://github.com/andrestubbe/FastTheme) — OS display/theme monitor
+
+**Graphics & Vision:**
+- [FastGraphics](https://github.com/andrestubbe/FastGraphics) — GPU-accelerated graphics
+- [FastAI](https://github.com/andrestubbe/FastAI) — AI/ML integration for Java
+
+**Math & Performance:**
+- [FastMath](https://github.com/andrestubbe/FastMath) — SIMD-optimized math operations
+- [FastIO](https://github.com/andrestubbe/FastIO) — High-performance file I/O
 
 ---
 
