@@ -1,36 +1,5 @@
-# OSSRH Credentials
-.ossrh-credentials
-
 # Compiled class files
 *.class
-
-# Native libraries
-*.dll
-*.so
-*.dylib
-*.exp
-*.lib
-*.obj
-*.o
-
-# Build directories
-build/
-target/
-out/
-bin/
-
-# IDE files
-.idea/
-.vscode/
-*.iml
-*.ipr
-*.iws
-
-# OS files
-.DS_Store
-Thumbs.db
-*.tmp
-*.temp
 
 # Maven
 target/
@@ -44,15 +13,34 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-# Logs
-*.log
-
-# Temporary files
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
 *.swp
 *.swo
 *~
 
-# Native compilation artifacts
+# Native build files
+build/
+*.obj
+*.o
+*.dll
+*.so
+*.dylib
+*.lib
+*.exp
 *.pdb
-*.ilk
-*.exe
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Test outputs
+test-output/
+benchmark_results/

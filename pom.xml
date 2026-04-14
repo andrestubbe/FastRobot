@@ -6,13 +6,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.andrestubbe</groupId>
-    <artifactId>fastrobot</artifactId>
-    <version>2.0.0</version>
+    <artifactId>${project.name}</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>FastRobot</name>
-    <description>Ultra-fast replacement for java.awt.Robot with maximum performance optimizations</description>
-    <url>https://github.com/andrestubbe/fastrobot</url>
+    <name>fastrobot</name>
+    <description>FastJava library - High-performance Java screen capture and automation with DirectX support</description>
+    <url>https://github.com/andrestubbe/${project.name}</url>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -38,12 +38,27 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/fastjava/ultrafastrobot.git</connection>
-        <developerConnection>scm:git:ssh://github.com:fastjava/ultrafastrobot.git</developerConnection>
-        <url>https://github.com/fastjava/ultrafastrobot/tree/main</url>
+        <connection>scm:git:git://github.com/andrestubbe/${project.name}.git</connection>
+        <developerConnection>scm:git:ssh://github.com:andrestubbe/${project.name}.git</developerConnection>
+        <url>https://github.com/andrestubbe/${project.name}/tree/main</url>
     </scm>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+        <!-- FastCore - Unified JNI loader -->
+        <dependency>
+            <groupId>com.github.andrestubbe</groupId>
+            <artifactId>fastcore</artifactId>
+            <version>v1.0.0</version>
+        </dependency>
+        
+        <!-- JUnit 5 for testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -87,13 +102,14 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>fastrobot.UltraBenchmark</mainClass>
+                            <!-- Note: Library JAR - no mainClass needed -->
+                            <!-- Demos are in examples/ folder -->
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
 
-            <!-- Maven Source Plugin -->
+            <!-- Maven Source Plugin (for Maven Central) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -108,7 +124,7 @@
                 </executions>
             </plugin>
 
-            <!-- Maven Javadoc Plugin -->
+            <!-- Maven Javadoc Plugin (for Maven Central) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -123,36 +139,91 @@
                 </executions>
             </plugin>
 
-            <!-- Native Library Resource Plugin -->
+            <!-- Exec Plugin for running demos/benchmarks -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
-                <executions>
-                    <execution>
-                        <id>copy-native-libs</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.outputDirectory}/native</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>build</directory>
-                                    <includes>
-                                        <include>fastrobot.dll</include>
-                                        <include>libfastrobot.so</include>
-                                        <include>libfastrobot.dylib</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>fastrobot.DesktopStreamDemo</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Native Library Profile (uncomment if using JNI) -->
+        <!--
+        <profile>
+            <id>native</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <executions>
+                            <execution>
+                                <id>copy-native-libs</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.outputDirectory}/native</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>build</directory>
+                                            <includes>
+                                                <include>*.dll</include>
+                                                <include>*.so</include>
+                                                <include>*.dylib</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        -->
+
+        <!-- Release Profile (for Maven Central) -->
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.13</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>central</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <distributionManagement>
         <repository>
@@ -164,22 +235,4 @@
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
-
-    <profiles>
-        <!-- Development Profile -->
-        <profile>
-            <id>dev</id>
-            <properties>
-                <maven.test.skip>false</maven.test.skip>
-            </properties>
-        </profile>
-
-        <!-- Production Profile -->
-        <profile>
-            <id>prod</id>
-            <properties>
-                <maven.test.skip>true</maven.test.skip>
-            </properties>
-        </profile>
-    </profiles>
 </project>

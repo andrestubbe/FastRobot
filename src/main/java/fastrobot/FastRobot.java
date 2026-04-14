@@ -1,5 +1,6 @@
 package fastrobot;
 
+import fastcore.FastCore;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -17,19 +18,8 @@ import java.awt.image.BufferedImage;
 public class FastRobot {
     
     static {
-        try {
-            // Try System.loadLibrary first (default)
-            System.loadLibrary("fastrobot");
-        } catch (UnsatisfiedLinkError e1) {
-            try {
-                // Fallback to absolute path
-                String dllPath = System.getProperty("user.dir") + "\\build\\fastrobot.dll";
-                System.load(dllPath);
-            } catch (UnsatisfiedLinkError e2) {
-                System.err.println("Failed to load fastrobot.dll: " + e2.getMessage());
-                throw e2;
-            }
-        }
+        // Use FastCore for unified native library loading
+        FastCore.loadLibrary("fastrobot");
     }
     
     // Native method declarations
