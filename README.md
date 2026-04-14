@@ -235,24 +235,15 @@ MIT License — free for commercial and private use. See [LICENSE](LICENSE) for 
 
 ## Related Projects
 
-**Core Infrastructure:**
-- [FastCore](https://github.com/andrestubbe/FastCore) — Unified JNI loader for all FastJava modules
-
-**Input & Automation:**
+- [FastCore](https://github.com/andrestubbe/FastCore) — Unified JNI loader
 - [FastHotkey](https://github.com/andrestubbe/FastHotkey) — Global hotkey library
-- [FastTouch](https://github.com/andrestubbe/FastTouch) — Multi-touch gesture recognition
-
-**System Integration:**
-- [FastClipboard](https://github.com/andrestubbe/FastClipboard) — Ultra-fast clipboard access
-- [FastTheme](https://github.com/andrestubbe/FastTheme) — OS display/theme monitor
-
-**Graphics & Vision:**
+- [FastTouch](https://github.com/andrestubbe/FastTouch) — Multi-touch gestures
+- [FastClipboard](https://github.com/andrestubbe/FastClipboard) — Clipboard access
+- [FastTheme](https://github.com/andrestubbe/FastTheme) — Display/theme monitor
 - [FastGraphics](https://github.com/andrestubbe/FastGraphics) — GPU-accelerated graphics
-- [FastAI](https://github.com/andrestubbe/FastAI) — AI/ML integration for Java
-
-**Math & Performance:**
-- [FastMath](https://github.com/andrestubbe/FastMath) — SIMD-optimized math operations
-- [FastIO](https://github.com/andrestubbe/FastIO) — High-performance file I/O
+- [FastAI](https://github.com/andrestubbe/FastAI) — AI/ML integration
+- [FastMath](https://github.com/andrestubbe/FastMath) — SIMD math
+- [FastIO](https://github.com/andrestubbe/FastIO) — High-performance I/O
 
 ---
 
