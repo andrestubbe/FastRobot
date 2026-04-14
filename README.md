@@ -122,15 +122,15 @@ mvn compile exec:java
 ```
 fastrobot/
 ├── src/main/java/fastrobot/    # Main API
-│   ├── FastRobot.java          # Core automation class
-│   └── NativeLibraryLoader.java # JNI loader
+│   └── FastRobot.java          # Core automation class
 ├── examples/                   # Runnable examples
 │   └── 00-basic-usage/         # DesktopStreamDemo, PNGRecorder, Benchmark
 ├── native/                     # C++ JNI source
 │   ├── fastrobot.cpp           # Native implementation
 │   └── DXGICapture.cpp         # DirectX capture
 ├── pom.xml                     # Maven configuration
-└── README.md                   # This file
+├── README.md                   # This file
+└── COMPILE.md                # Build instructions
 ```
 
 ---
