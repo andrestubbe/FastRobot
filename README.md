@@ -141,24 +141,9 @@ fastrobot/
 
 ---
 
-## Building from Source
+## Build from Source
 
-### Prerequisites
-- JDK 17+
-- Maven 3.9+
-- Visual Studio 2019+ (for native DLL)
-
-### Build
-```bash
-git clone https://github.com/andrestubbe/fastrobot.git
-cd fastrobot
-
-# Build Java + native DLL
-mvn clean compile
-
-# Create JAR with native libraries
-mvn package
-```
+See [COMPILE.md](COMPILE.md) for detailed build instructions.
 
 ---
 
