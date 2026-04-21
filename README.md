@@ -135,8 +135,7 @@ fastrobot/
 │   ├── fastrobot.cpp           # Native implementation
 │   └── DXGICapture.cpp         # DirectX capture
 ├── pom.xml                     # Maven configuration
-├── README.md                   # This file
-└── COMPILE.md                # Build instructions
+└── README.md                   # This file
 ```
 
 ---
