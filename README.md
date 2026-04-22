@@ -1,4 +1,4 @@
-# FastRobot — High-Performance Java Automation & DirectX Screen Capture
+# FastRobot — High-Performance Java Automation & DirectX Screen Capture [ALPHA]
 
 **⚡ Ultra-fast Java screen capture & automation library — 10-17× faster than java.awt.Robot**
 
