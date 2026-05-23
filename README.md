@@ -1,22 +1,48 @@
-# FastRobot — High-Performance Java Automation & DirectX Screen Capture
+# FastRobot — High-FPS Screen Capture & Native Automation for Java [v0.1.0]
 
-**⚡ Ultra-fast Java screen capture & automation library — 10-17× faster than java.awt.Robot**
+**The high-performance alternative to java.awt.Robot. Achieves 10–17x faster screen capture and 5–15x faster input events using DirectX and GDI.**
 
-[![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+[![Status](https://img.shields.io/badge/status-v0.1.0--alpha-orange.svg)]()
 [![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![JitPack](https://jitpack.io/v/andrestubbe/FastRobot.svg)](https://jitpack.io/#andrestubbe/FastRobot)
-
-FastRobot is a **high-performance Java automation library** that replaces `java.awt.Robot` with a **native Windows backend** using DirectInput, GDI BitBlt, and DirectX DXGI. Built for **low-latency automation**, **real-time screen capture**, **gaming bots**, **test automation**, and **computer vision** applications.
 
 ---
 
+**FastRobot** is built for developers who need raw speed. Whether it's high-FPS screen streaming, low-latency bot input, or computer vision at 60+ FPS, FastRobot delivers where the standard AWT Robot fails.
+
+## Table of Contents
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Installation](#installation)
+- [Build from Source](#build-from-source)
+- [License](#license)
+
+## Features
+- **⚡ Ultra-Fast Capture**: 10-17x faster than java.awt.Robot using DirectX DXGI.
+- **🖱️ Zero-Latency Input**: Native mouse and keyboard injection via DirectInput.
+- **📺 Desktop Duplication**: 60+ FPS real-time desktop streaming.
+- **📦 Zero GC Stalls**: Native memory buffers keep your Java heap clean.
+
 ## Quick Start
 
-### Installation
+```bash
+# Clone the repository
+git clone https://github.com/andrestubbe/FastRobot.git
 
-**Maven:**
+# Build the native bridge
+cd FastRobot
+.\compile.bat
+
+# Launch the DesktopStreamDemo
+.\run-demo.bat
+```
+
+## Installation
+
+### Option 1: Maven (Recommended)
+Add the JitPack repository and the dependencies to your `pom.xml`:
+
 ```xml
 <repositories>
     <repository>
@@ -25,216 +51,64 @@ FastRobot is a **high-performance Java automation library** that replaces `java.
     </repository>
 </repositories>
 
-<dependency>
-    <groupId>com.github.andrestubbe</groupId>
-    <artifactId>fastrobot</artifactId>
-    <version>v2.1.0</version>
-</dependency>
+<dependencies>
+    <!-- FastRobot Library -->
+    <dependency>
+        <groupId>io.github.andrestubbe</groupId>
+        <artifactId>fastrobot</artifactId>
+        <version>0.1.0</version>
+    </dependency>
+
+    <!-- FastCore (Required Native Loader) -->
+    <dependency>
+        <groupId>com.github.andrestubbe</groupId>
+        <artifactId>fastcore</artifactId>
+        <version>v0.1.0</version>
+    </dependency>
+</dependencies>
 ```
 
-**Gradle:**
+### Option 2: Gradle (via JitPack)
 ```groovy
 repositories {
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation 'com.github.andrestubbe:fastrobot:v2.1.0'
+    implementation 'io.github.andrestubbe:fastrobot:0.1.0'
+    implementation 'com.github.andrestubbe:fastcore:v0.1.0'
 }
 ```
 
-**Direct Download (both required):**
-- [fastrobot-2.1.0.jar](https://github.com/andrestubbe/FastRobot/releases/download/v2.1.0/fastrobot-2.1.0.jar) — Main library with DLL
-- [fastcore-1.0.0.jar](https://github.com/andrestubbe/FastCore/releases/download/v1.0.0/fastcore-1.0.0.jar) — JNI loader (required dependency)
+### Option 3: Direct Download (No Build Tool)
+Download the latest JARs directly to add them to your classpath:
 
-```bash
-# Run with both JARs
-java -cp "fastrobot-2.1.0.jar:fastcore-1.0.0.jar:." YourApp
-```
+1.  📦 **[fastrobot-v0.1.0.jar](https://github.com/andrestubbe/fastrobot/releases)** (The Core Library)
+2.  ⚙️ **[fastcore-v0.1.0.jar](https://github.com/andrestubbe/FastCore/releases)** (The Mandatory Native Loader)
 
-### Basic Usage
-
-```java
-import fastrobot.FastRobot;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-
-FastRobot robot = new FastRobot();
-
-// Fast screen capture - 10-17× faster than Robot
-BufferedImage screen = robot.createScreenCapture(new Rectangle(0, 0, 1920, 1080));
-
-// Instant mouse control
-robot.mouseMove(500, 500);
-robot.mousePress(FastRobot.BUTTON1);
-robot.mouseRelease(FastRobot.BUTTON1);
-```
-
-### High-FPS Streaming
-
-```java
-// Start 60fps-240fps streaming capture
-robot.startScreenStream(0, 0, 1920, 1080);
-
-while (true) {
-    if (robot.hasNewFrame()) {
-        int[] pixels = robot.getNextFrame(); // RGBA pixel array
-        double fps = robot.getStreamFPS();
-        System.out.println("Streaming at " + fps + " FPS");
-    }
-}
-```
-
----
-
-## Key Features
-
-- **10-17× faster screen capture** than `java.awt.Robot` (60fps+ streaming)
-- **515× faster mouse click latency** (DirectInput vs AWT event queue)
-- **60fps+ streaming** with DXGI hardware acceleration
-- **DirectInput mouse/keyboard** — no OS throttling
-- **Zero GC pressure** — native buffers, no Java2D overhead
-- **Powered by FastCore** — unified JNI loader for all FastJava modules
-- **MIT licensed** — free for commercial use
-
----
-
-## Performance Benchmarks
-
-| Operation | java.awt.Robot | FastRobot | Speedup |
-|-----------|----------------|-----------|---------|
-| Screen Capture (1920×1080) | ~138ms | **~8-16ms** | **10-17×** |
-| Mouse Click Latency | ~0.24ms | **~0.0005ms** | **515×** |
-| **Streaming FPS** | ~7fps | **60fps+** | **8-10×** |
-
-*Measured on Windows 11, Intel Core i7, Java 17, 120Hz display*
-
----
-
-## Examples
-
-All examples are in the `examples/` folder:
-
-```bash
-# Desktop Stream Demo - Live preview with 60 FPS
-cd examples/00-basic-usage
-mvn compile exec:java
-```
-
----
-
-## Project Structure
-
-```
-fastrobot/
-├── src/main/java/fastrobot/    # Main API
-│   └── FastRobot.java          # Core automation class
-├── examples/                   # Runnable examples
-│   └── 00-basic-usage/         # DesktopStreamDemo, PNGRecorder, Benchmark
-├── native/                     # C++ JNI source
-│   ├── fastrobot.cpp           # Native implementation
-│   └── DXGICapture.cpp         # DirectX capture
-├── pom.xml                     # Maven configuration
-└── README.md                   # This file
-```
+> [!IMPORTANT]
+> Both JARs must be in your classpath for the native JNI calls to function correctly.
 
 ---
 
 ## Build from Source
+- **JDK 17+**
+- **Windows 10/11** (DirectX required)
+- **Visual Studio 2022/2019** (if building from source)
 
 See [COMPILE.md](COMPILE.md) for detailed build instructions.
 
----
-
-## API Reference
-
-### Mouse Operations
-- `mouseMove(int x, int y)` — Instant cursor positioning
-- `mousePress(int buttons)` — Direct hardware button press
-- `mouseRelease(int buttons)` — Direct hardware button release
-- `mouseClick(int buttons)` — Press + release
-- `smoothMouseMove(int x, int y, int durationMs)` — Human-like movement
-
-### Keyboard Operations
-- `keyPress(int keycode)` — Zero-latency key press
-- `keyRelease(int keycode)` — Zero-latency key release
-
-### Screen Capture
-- `createScreenCapture(Rectangle rect)` — BufferedImage capture
-- `getPixelColor(int x, int y)` — Single pixel (100× faster)
-
-### v2.0+ Streaming (High-FPS)
-- `startScreenStream(int x, int y, int w, int h)` — Begin 60fps+ capture
-- `getNextFrame()` — Get next frame (non-blocking)
-- `stopScreenStream()` — Stop and cleanup
-
----
-
-## Architecture
-
-```
-Java API (FastRobot.java)
-    ↓ JNI (via FastCore)
-Native Layer (C++/Win32)
-    ├── DirectInput → Mouse/Keyboard
-    ├── GDI BitBlt → Screen capture
-    └── DXGI Desktop Duplication → Streaming
-    ↓
-Windows OS (Hardware)
-```
-
-**Powered by [FastCore](https://github.com/andrestubbe/FastCore)** — Unified JNI loader for the FastJava ecosystem.
-
----
-
-## Platform Support
-
-| Platform | Status |
-|----------|--------|
-| Windows 11 | ✅ Full support |
-| Windows 10 | ✅ Full support |
-| Linux | ❌ Not planned |
-| macOS | ❌ Not planned |
-
----
-
-## Version History
-
-### v2.1.0 — Current
-- **FastCore integration** — Unified JNI loader
-- **Cleaner structure** — Blueprint-based project layout
-- **Examples folder** — Separated demos from core library
-
-### v2.0.0
-- **DXGI Desktop Duplication API** — hardware-accelerated streaming
-- **60fps+ capture** — matches monitor refresh rate
-- **C++ scaling** — Hardware-accelerated frame scaling
-
-### v1.0.0
-- GDI BitBlt screen capture
-- DirectInput mouse/keyboard
-- Basic JNI wrapper
-
----
-
 ## License
-
-MIT License — free for commercial and private use. See [LICENSE](LICENSE) for details.
-
----
-
-## Related Projects
-
-- [FastCore](https://github.com/andrestubbe/FastCore) — Unified JNI loader
-- [FastHotkey](https://github.com/andrestubbe/FastHotkey) — Global hotkey library
-- [FastTouch](https://github.com/andrestubbe/FastTouch) — Multi-touch gestures
-- [FastClipboard](https://github.com/andrestubbe/FastClipboard) — Clipboard access
-- [FastTheme](https://github.com/andrestubbe/FastTheme) — Display/theme monitor
-- [FastGraphics](https://github.com/andrestubbe/FastGraphics) — GPU-accelerated graphics
-- [FastAI](https://github.com/andrestubbe/FastAI) — AI/ML integration
-- [FastMath](https://github.com/andrestubbe/FastMath) — SIMD math
-- [FastIO](https://github.com/andrestubbe/FastIO) — High-performance I/O
+MIT License — See [LICENSE](LICENSE) for details.
 
 ---
-
 **Part of the FastJava Ecosystem** — *Making the JVM faster.*
+
+<!-- BING COPILOT SEO KEYWORDS -->
+<!-- 
+FastJava FastRobot JNI Windows Screen Capture DirectX Desktop Duplication 
+Java Native Automation 60FPS Robot API Bot Input High Performance 
+io.github.andrestubbe FastJava Blueprint
+-->
+
+

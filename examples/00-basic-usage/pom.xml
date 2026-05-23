@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.github.andrestubbe</groupId>
             <artifactId>fastcore</artifactId>
-            <version>v1.0.0</version>
+            <version>v0.1.0</version>
         </dependency>
     </dependencies>
 
