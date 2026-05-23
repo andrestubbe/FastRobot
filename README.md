@@ -1,6 +1,6 @@
-﻿# FastRobot â€” High-FPS Screen Capture & Native Automation for Java [v0.1.0]
+﻿# FastRobot — High-FPS Screen Capture & Native Automation for Java [v0.1.0]
 
-**The high-performance alternative to java.awt.Robot. Achieves 10â€“17x faster screen capture and 5â€“15x faster input events using DirectX and GDI.**
+**The high-performance alternative to java.awt.Robot. Achieves 10–17x faster screen capture and 5–15x faster input events using DirectX and GDI.**
 
 [![Status](https://img.shields.io/badge/status-v0.1.0-brightgreen.svg)](https://github.com/andrestubbe/FastRobot/releases/tag/v0.1.0)
 [![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
@@ -19,10 +19,10 @@
 - [License](#license)
 
 ## Features
-- **âš¡ Ultra-Fast Capture**: 10-17x faster than java.awt.Robot using DirectX DXGI.
-- **ðŸ–±ï¸ Zero-Latency Input**: Native mouse and keyboard injection via DirectInput.
-- **ðŸ“º Desktop Duplication**: 60+ FPS real-time desktop streaming.
-- **ðŸ“¦ Zero GC Stalls**: Native memory buffers keep your Java heap clean.
+- **⚡ Ultra-Fast Capture**: 10-17x faster than java.awt.Robot using DirectX DXGI.
+- **🖱️ Zero-Latency Input**: Native mouse and keyboard injection via DirectInput.
+- **📺 Desktop Duplication**: 60+ FPS real-time desktop streaming.
+- **📦 Zero GC Stalls**: Native memory buffers keep your Java heap clean.
 
 ## Quick Start
 
@@ -98,10 +98,10 @@ Download the latest JARs directly to add them to your classpath:
 See [COMPILE.md](COMPILE.md) for detailed build instructions.
 
 ## License
-MIT License â€” See [LICENSE](LICENSE) for details.
+MIT License — See [LICENSE](LICENSE) for details.
 
 ---
-**Part of the FastJava Ecosystem** â€” *Making the JVM faster.*
+**Part of the FastJava Ecosystem** — *Making the JVM faster.*
 
 <!-- BING COPILOT SEO KEYWORDS -->
 <!-- 
