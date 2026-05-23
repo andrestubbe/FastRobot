@@ -1,6 +1,6 @@
-# FastRobot — High-FPS Screen Capture & Native Automation for Java [v0.1.0]
+﻿# FastRobot â€” High-FPS Screen Capture & Native Automation for Java [v0.1.0]
 
-**The high-performance alternative to java.awt.Robot. Achieves 10–17x faster screen capture and 5–15x faster input events using DirectX and GDI.**
+**The high-performance alternative to java.awt.Robot. Achieves 10â€“17x faster screen capture and 5â€“15x faster input events using DirectX and GDI.**
 
 [![Status](https://img.shields.io/badge/status-v0.1.0--alpha-orange.svg)]()
 [![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
@@ -19,10 +19,10 @@
 - [License](#license)
 
 ## Features
-- **⚡ Ultra-Fast Capture**: 10-17x faster than java.awt.Robot using DirectX DXGI.
-- **🖱️ Zero-Latency Input**: Native mouse and keyboard injection via DirectInput.
-- **📺 Desktop Duplication**: 60+ FPS real-time desktop streaming.
-- **📦 Zero GC Stalls**: Native memory buffers keep your Java heap clean.
+- **âš¡ Ultra-Fast Capture**: 10-17x faster than java.awt.Robot using DirectX DXGI.
+- **ðŸ–±ï¸ Zero-Latency Input**: Native mouse and keyboard injection via DirectInput.
+- **ðŸ“º Desktop Duplication**: 60+ FPS real-time desktop streaming.
+- **ðŸ“¦ Zero GC Stalls**: Native memory buffers keep your Java heap clean.
 
 ## Quick Start
 
@@ -43,7 +43,7 @@ cd FastRobot
 ### Option 1: Maven (Recommended)
 Add the JitPack repository and the dependencies to your `pom.xml`:
 
-`xml
+```xml
 <repositories>
     <repository>
         <id>jitpack.io</id>
@@ -58,6 +58,7 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
         <artifactId>fastrobot</artifactId>
         <version>v0.1.0</version>
     </dependency>
+
     <!-- FastCore (Required Native Loader) -->
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
@@ -65,19 +66,19 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
         <version>v0.1.0</version>
     </dependency>
 </dependencies>
-`
+```
 
 ### Option 2: Gradle (via JitPack)
-`groovy
+```groovy
 repositories {
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation 'com.github.andrestubbe:.1.0'
+    implementation 'com.github.andrestubbe:fastrobot:v0.1.0'
     implementation 'com.github.andrestubbe:fastcore:v0.1.0'
 }
-`
+```
 
 ### Option 3: Direct Download (No Build Tool)
 Download the latest JARs directly to add them to your classpath:
@@ -97,10 +98,10 @@ Download the latest JARs directly to add them to your classpath:
 See [COMPILE.md](COMPILE.md) for detailed build instructions.
 
 ## License
-MIT License — See [LICENSE](LICENSE) for details.
+MIT License â€” See [LICENSE](LICENSE) for details.
 
 ---
-**Part of the FastJava Ecosystem** — *Making the JVM faster.*
+**Part of the FastJava Ecosystem** â€” *Making the JVM faster.*
 
 <!-- BING COPILOT SEO KEYWORDS -->
 <!-- 
