@@ -31,13 +31,13 @@
         <dependency>
             <groupId>com.github.andrestubbe</groupId>
             <artifactId>fastrobot</artifactId>
-            <version>v2.1.0</version>
+            <version>0.1.0</version>
         </dependency>
         <!-- FastCore (required by FastRobot) -->
         <dependency>
             <groupId>com.github.andrestubbe</groupId>
             <artifactId>fastcore</artifactId>
-            <version>v0.1.0</version>
+            <version>0.1.0</version>
         </dependency>
     </dependencies>
 
@@ -54,3 +54,5 @@
         </plugins>
     </build>
 </project>
+
+
