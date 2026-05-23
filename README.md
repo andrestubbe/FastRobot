@@ -2,7 +2,7 @@
 
 **The high-performance alternative to java.awt.Robot. Achieves 10â€“17x faster screen capture and 5â€“15x faster input events using DirectX and GDI.**
 
-[![Status](https://img.shields.io/badge/status-v0.1.0--alpha-orange.svg)]()
+[![Status](https://img.shields.io/badge/status-v0.1.0-brightgreen.svg)](https://github.com/andrestubbe/FastRobot/releases/tag/v0.1.0)
 [![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
