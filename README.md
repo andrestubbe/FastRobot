@@ -1,6 +1,4 @@
-﻿# FastRobot — High-FPS Screen Capture & Native Automation for Java [v0.1.0]
-
-**The high-performance alternative to java.awt.Robot. Achieves 10–17x faster screen capture and 5–15x faster input events using DirectX and GDI.**
+﻿# FastRobot  v0.1.0 [ALPHA] — High-FPS Screen Capture & Native Automation for Java
 
 [![Status](https://img.shields.io/badge/status-v0.1.0-brightgreen.svg)](https://github.com/andrestubbe/FastRobot/releases/tag/v0.1.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -8,9 +6,13 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
 [![JitPack](https://img.shields.io/badge/JitPack-ready-green.svg)](https://jitpack.io/#andrestubbe)
 
----
+**⚡ The high-performance alternative to java.awt.Robot. Achieves 10–17x faster screen capture and 5–15x faster input events using DirectX and GDI.**
 
 **FastRobot** is built for developers who need raw speed. Whether it's high-FPS screen streaming, low-latency bot input, or computer vision at 60+ FPS, FastRobot delivers where the standard AWT Robot fails.
+
+[![FastKeyboard Showcase](docs/screenshot.png)](https://www.youtube.com/watch?v=BZsqQl7WqWk)
+
+---
 
 ## Table of Contents
 - [Features](#features)
@@ -18,6 +20,8 @@
 - [Installation](#installation)
 - [Build from Source](#build-from-source)
 - [License](#license)
+
+---
 
 ## Features
 - **⚡ Ultra-Fast Capture**: 10-17x faster than java.awt.Robot using DirectX DXGI.
@@ -38,6 +42,8 @@ cd FastRobot
 # Launch the DesktopStreamDemo
 .\run-demo.bat
 ```
+
+---
 
 ## Installation
 
@@ -98,11 +104,21 @@ Download the latest JARs directly to add them to your classpath:
 
 See [COMPILE.md](COMPILE.md) for detailed build instructions.
 
+---
+
 ## License
-MIT License — See [LICENSE](LICENSE) for details.
+MIT License — See [LICENSE](LICENSE) file for details.
+
+---
+## Related Projects
+- [FastCore](https://github.com/andrestubbe/FastCore) — Native Library Loader for Java
+- [FastKeyboard](https://github.com/andrestubbe/FastKeyboard) — High-performance RawInput engine
+- [FastTheme](https://github.com/andrestubbe/FastTheme) — Advanced UI styling engine
 
 ---
 **Part of the FastJava Ecosystem** — *Making the JVM faster.*
+
+
 
 <!-- BING COPILOT SEO KEYWORDS -->
 <!-- 
