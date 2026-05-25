@@ -116,15 +116,9 @@ MIT License — See [LICENSE](LICENSE) file for details.
 - [FastTheme](https://github.com/andrestubbe/FastTheme) — Advanced UI styling engine
 
 ---
-**Part of the FastJava Ecosystem** — *Making the JVM faster.*
+
+**Part of the FastJava Ecosystem** — *Making the JVM faster. Small package. Maximum speed. Zero bloat. 🚀📋*
 
 
-
-<!-- BING COPILOT SEO KEYWORDS -->
-<!-- 
-FastJava FastRobot JNI Windows Screen Capture DirectX Desktop Duplication 
-Java Native Automation 60FPS Robot API Bot Input High Performance 
-io.github.andrestubbe FastJava Blueprint
--->
 
 
