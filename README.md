@@ -6,11 +6,15 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
 [![JitPack](https://img.shields.io/badge/JitPack-ready-green.svg)](https://jitpack.io/#andrestubbe)
 
+---
+
 **⚡ The high-performance alternative to java.awt.Robot. Achieves 10–17x faster screen capture and 5–15x faster input
 events using DirectX and GDI.**
 
 **FastRobot** is built for developers who need raw speed. Whether it's high-FPS screen streaming, low-latency bot input,
 or computer vision at 60+ FPS, FastRobot delivers where the standard AWT Robot fails.
+
+---
 
 [![FastKeyboard Showcase](docs/screenshot.png)](https://www.youtube.com/watch?v=BZsqQl7WqWk)
 
