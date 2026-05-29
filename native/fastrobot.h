@@ -41,6 +41,9 @@ JNIEXPORT void JNICALL Java_fastrobot_FastRobot_mouseMoveRelative(JNIEnv *env, j
 JNIEXPORT void JNICALL Java_fastrobot_FastRobot_mousePress(JNIEnv *env, jobject obj, jint buttons);
 JNIEXPORT void JNICALL Java_fastrobot_FastRobot_mouseRelease(JNIEnv *env, jobject obj, jint buttons);
 JNIEXPORT void JNICALL Java_fastrobot_FastRobot_mouseWheel(JNIEnv *env, jobject obj, jint wheelRotation);
+JNIEXPORT void JNICALL Java_fastrobot_FastRobot_virtualMouseMove(JNIEnv *env, jobject obj, jint x, jint y);
+JNIEXPORT void JNICALL Java_fastrobot_FastRobot_virtualMousePress(JNIEnv *env, jobject obj, jint buttons, jint x, jint y);
+JNIEXPORT void JNICALL Java_fastrobot_FastRobot_virtualMouseRelease(JNIEnv *env, jobject obj, jint buttons, jint x, jint y);
 JNIEXPORT jintArray JNICALL Java_fastrobot_FastRobot_getMousePosition(JNIEnv *env, jobject obj);
 
 /** @} */

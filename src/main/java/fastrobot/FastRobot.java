@@ -32,6 +32,11 @@ public class FastRobot {
     public native void mouseWheel(int wheelRotation);
     public native int[] getMousePosition(); // Returns [x, y]
     
+    // === Virtual Mouse operations (Background clicking via PostMessage) ===
+    public native void virtualMouseMove(int x, int y);
+    public native void virtualMousePress(int buttons, int x, int y);
+    public native void virtualMouseRelease(int buttons, int x, int y);
+    
     // === Keyboard operations ===
     public native void keyPress(int keycode);
     public native void keyRelease(int keycode);
@@ -165,6 +170,33 @@ public class FastRobot {
             int x = (int) (startX + (targetX - startX) * t);
             int y = (int) (startY + (targetY - startY) * t);
             mouseMove(x, y);
+            
+            if (i < steps) {
+                try { Thread.sleep(stepDelay); } catch (InterruptedException e) { }
+            }
+        }
+    }
+
+    /**
+     * Smooth VIRTUAL mouse movement to target position (human-like, background).
+     * 
+     * @param startX Starting X coordinate
+     * @param startY Starting Y coordinate
+     * @param targetX Target X coordinate
+     * @param targetY Target Y coordinate  
+     * @param durationMs Total movement duration in milliseconds
+     */
+    public void smoothVirtualMouseMove(int startX, int startY, int targetX, int targetY, int durationMs) {
+        int steps = Math.max(10, durationMs / 10);
+        long stepDelay = durationMs / steps;
+        
+        for (int i = 0; i <= steps; i++) {
+            double t = (double) i / steps;
+            t = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+            
+            int x = (int) (startX + (targetX - startX) * t);
+            int y = (int) (startY + (targetY - startY) * t);
+            virtualMouseMove(x, y);
             
             if (i < steps) {
                 try { Thread.sleep(stepDelay); } catch (InterruptedException e) { }

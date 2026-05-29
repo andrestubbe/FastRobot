@@ -59,6 +59,40 @@ JNIEXPORT void JNICALL Java_fastrobot_FastRobot_mouseMoveRelative(JNIEnv *env, j
     SetCursorPos(pt.x + dx, pt.y + dy);
 }
 
+JNIEXPORT void JNICALL Java_fastrobot_FastRobot_virtualMouseMove(JNIEnv *env, jobject obj, jint x, jint y) {
+    POINT pt = { x, y };
+    HWND hwnd = WindowFromPoint(pt);
+    if (hwnd) {
+        ScreenToClient(hwnd, &pt);
+        PostMessage(hwnd, WM_MOUSEMOVE, 0, MAKELPARAM(pt.x, pt.y));
+    }
+}
+
+JNIEXPORT void JNICALL Java_fastrobot_FastRobot_virtualMousePress(JNIEnv *env, jobject obj, jint buttons, jint x, jint y) {
+    POINT pt = { x, y };
+    HWND hwnd = WindowFromPoint(pt);
+    if (hwnd) {
+        ScreenToClient(hwnd, &pt);
+        UINT msg = WM_LBUTTONDOWN;
+        WPARAM wparam = MK_LBUTTON;
+        if (buttons & 2) { msg = WM_MBUTTONDOWN; wparam = MK_MBUTTON; }
+        else if (buttons & 4) { msg = WM_RBUTTONDOWN; wparam = MK_RBUTTON; }
+        PostMessage(hwnd, msg, wparam, MAKELPARAM(pt.x, pt.y));
+    }
+}
+
+JNIEXPORT void JNICALL Java_fastrobot_FastRobot_virtualMouseRelease(JNIEnv *env, jobject obj, jint buttons, jint x, jint y) {
+    POINT pt = { x, y };
+    HWND hwnd = WindowFromPoint(pt);
+    if (hwnd) {
+        ScreenToClient(hwnd, &pt);
+        UINT msg = WM_LBUTTONUP;
+        if (buttons & 2) { msg = WM_MBUTTONUP; }
+        else if (buttons & 4) { msg = WM_RBUTTONUP; }
+        PostMessage(hwnd, msg, 0, MAKELPARAM(pt.x, pt.y));
+    }
+}
+
 JNIEXPORT jintArray JNICALL Java_fastrobot_FastRobot_getMousePosition(JNIEnv *env, jobject obj) {
     POINT pt;
     GetCursorPos(&pt);
