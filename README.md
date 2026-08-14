@@ -15,6 +15,24 @@ or computer vision at 60+ FPS, FastRobot delivers where the standard AWT Robot f
 
 ---
 
+## Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/andrestubbe/FastRobot.git
+
+# Build the native bridge
+cd FastRobot
+.\compile.bat
+
+# Launch the demo
+.\run-demo.bat
+```
+
+---
+
+---
+
 ## Table of Contents
 
 - [Features](#features)
@@ -36,21 +54,6 @@ or computer vision at 60+ FPS, FastRobot delivers where the standard AWT Robot f
 
 ---
 
-## Quick Start
-
-```bash
-# Clone the repository
-git clone https://github.com/andrestubbe/FastRobot.git
-
-# Build the native bridge
-cd FastRobot
-.\compile.bat
-
-# Launch the demo
-.\run-demo.bat
-```
-
----
 
 ## Installation
 
