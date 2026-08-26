@@ -8,7 +8,7 @@ echo ===================================================
 echo  Building FastRobot ^& JMH Benchmarks Uber-Jar
 echo ===================================================
 
-call "C:\Users\andre\tools\apache-maven-3.9.9\bin\mvn.cmd" -q clean install -DskipTests 2>nul
+call mvn -q clean install -DskipTests 2>nul
 if %ERRORLEVEL% NEQ 0 (
     echo [ERROR] FastRobot install failed!
     pause
@@ -16,7 +16,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 cd examples\Benchmark
-call "C:\Users\andre\tools\apache-maven-3.9.9\bin\mvn.cmd" -q clean package 2>nul
+call mvn -q clean package 2>nul
 if %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Benchmark packaging failed!
     pause
