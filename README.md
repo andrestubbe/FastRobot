@@ -15,7 +15,7 @@ or computer vision at 60+ FPS, FastRobot delivers where the standard AWT Robot f
 
 ---
 
-## Quick Start — Example
+## Quick Start
 
 ```java
 import fastrobot.FastRobot;
