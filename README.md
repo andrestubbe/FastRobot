@@ -15,18 +15,32 @@ or computer vision at 60+ FPS, FastRobot delivers where the standard AWT Robot f
 
 ---
 
-## Quick Start
+## Quick Start — Example
 
-```bash
-# Clone the repository
-git clone https://github.com/andrestubbe/FastRobot.git
+```java
+import fastrobot.FastRobot;
+import java.awt.image.BufferedImage;
 
-# Build the native bridge
-cd FastRobot
-.\compile.bat
+public class Demo {
+    public static void main(String[] args) {
+        FastRobot robot = new FastRobot();
 
-# Launch the demo
-.\run-demo.bat
+        // 1. Direct Low-Latency Mouse Movement & Click (10-50x faster than AWT Robot)
+        robot.mouseMove(500, 300);
+        robot.mousePress(1);   // Left Button Down
+        robot.mouseRelease(1); // Left Button Up
+
+        // 2. High-Speed Screen Capture via Direct Native BitBlt / DXGI
+        int width = 800;
+        int height = 600;
+        BufferedImage screen = robot.createScreenCapture(0, 0, width, height);
+        System.out.println("Captured screen frame: " + screen.getWidth() + "x" + screen.getHeight());
+
+        // 3. Ultra-Fast Single Pixel Color Probe (GetPixel without capturing screen)
+        int rgb = robot.getPixelColor(100, 100);
+        System.out.printf("Pixel at (100, 100) RGB: #%06X\n", (rgb & 0xFFFFFF));
+    }
+}
 ```
 
 ---
