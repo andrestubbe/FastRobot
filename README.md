@@ -45,8 +45,6 @@ public class Demo {
 
 ---
 
----
-
 ## Table of Contents
 
 - [Features](#features)
