@@ -1,5 +1,3 @@
-package fastrobot.benchmark;
-
 import fastrobot.FastRobot;
 import org.openjdk.jmh.annotations.*;
 
