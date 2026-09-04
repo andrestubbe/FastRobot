@@ -1,6 +1,6 @@
-# FastRobot 0.1.0 [ALPHA-2026-06-14] — High-FPS Screen Capture & Native Automation for Java
+# FastRobot 0.1.1 [ALPHA-2026-06-14] — High-FPS Screen Capture & Native Automation for Java
 
-[![Status](https://img.shields.io/badge/status-0.1.0-brightgreen.svg)](https://github.com/andrestubbe/FastRobot/releases/tag/0.1.0)
+[![Status](https://img.shields.io/badge/status-0.1.1-brightgreen.svg)](https://github.com/andrestubbe/FastRobot/releases/tag/0.1.1)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
@@ -86,7 +86,14 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
         <artifactId>FastRobot</artifactId>
-        <version>0.1.0</version>
+        <version>0.1.1</version>
+    </dependency>
+
+    <!-- FastImage Frame Processing -->
+    <dependency>
+        <groupId>com.github.andrestubbe</groupId>
+        <artifactId>FastImage</artifactId>
+        <version>0.1.2</version>
     </dependency>
 
     <!-- FastCore (Required Native Loader) -->
@@ -106,7 +113,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.andrestubbe:FastRobot:0.1.0'
+    implementation 'com.github.andrestubbe:FastRobot:0.1.1'
+    implementation 'com.github.andrestubbe:FastImage:0.1.2'
     implementation 'com.github.andrestubbe:FastCore:0.1.0'
 }
 ```
@@ -115,8 +123,9 @@ dependencies {
 
 Download the latest JARs directly to add them to your classpath:
 
-1. 📦 **[fastrobot-0.1.0.jar](https://github.com/andrestubbe/FastRobot/releases/download/0.1.0/fastrobot-0.1.0.jar)** (The Core Library)
-2. ⚙️ **[fastcore-0.1.0.jar](https://github.com/andrestubbe/FastCore/releases/download/0.1.0/fastcore-0.1.0.jar)** (The Mandatory Native Loader)
+1. 📦 **[FastRobot-0.1.1.jar](https://github.com/andrestubbe/FastRobot/releases/tag/0.1.1)** (The Core Library)
+2. ⚡ **[FastImage-0.1.2.jar](https://github.com/andrestubbe/FastImage/releases/tag/0.1.2)** (The SIMD Image Engine)
+3. ⚙️ **[FastCore-0.1.0.jar](https://github.com/andrestubbe/FastCore/releases/tag/0.1.0)** (The Mandatory Native Loader)
 
 > [!IMPORTANT]
 > All JARs must be in your classpath for the native JNI calls to function correctly.
