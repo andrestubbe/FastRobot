@@ -16,7 +16,9 @@ if exist "%VSWHERE%" (
 
 :: Fallback: Check standard paths if vswhere didn't work
 if not defined VS_PATH (
-    if exist "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat" (
+    if exist "C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\vcvars64.bat" (
+        set "VS_PATH=C:\Program Files\Microsoft Visual Studio\18\Community"
+    ) else if exist "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat" (
         set "VS_PATH=C:\Program Files\Microsoft Visual Studio\2022\Community"
     ) else if exist "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" (
         set "VS_PATH=C:\Program Files\Microsoft Visual Studio\2022\Enterprise"
@@ -35,8 +37,7 @@ if not defined VS_PATH (
 if not defined VS_PATH (
     echo ERROR: Visual Studio not found!
     echo.
-    echo Please install Visual Studio 2019 or 2022 with "Desktop development with C++" workload
-    echo Or run this script from "Developer Command Prompt for VS"
+    echo Please install Visual Studio with C++ workload
     exit /b 1
 )
 
@@ -44,14 +45,14 @@ echo Found Visual Studio at: %VS_PATH%
 
 :: Try to detect JAVA_HOME if not set
 if not defined JAVA_HOME (
-    if exist "C:\Program Files\Java\jdk-25" (
+    if exist "C:\Program Files\Java\jdk-21.0.12.1" (
+        set "JAVA_HOME=C:\Program Files\Java\jdk-21.0.12.1"
+    ) else if exist "C:\Program Files\Java\jdk-25" (
         set "JAVA_HOME=C:\Program Files\Java\jdk-25"
-    ) else if exist "C:\Program Files\Eclipse Adoptium\jdk-17-hotspot" (
-        set "JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-17-hotspot"
+    ) else if exist "C:\Program Files\Java\latest" (
+        set "JAVA_HOME=C:\Program Files\Java\latest"
     ) else if exist "C:\Program Files\Java\jdk-17" (
         set "JAVA_HOME=C:\Program Files\Java\jdk-17"
-    ) else if exist "C:\Program Files\Microsoft\jdk-17" (
-        set "JAVA_HOME=C:\Program Files\Microsoft\jdk-17"
     )
 )
 
@@ -88,8 +89,11 @@ cl.exe /LD /O2 /W3 /MD /EHsc ^
 :: Check result
 if %ERRORLEVEL% == 0 (
     echo.
-    echo ✅ Build successful: build\fastrobot.dll
+    echo ??? Build successful: build\fastrobot.dll
     dir build\fastrobot.dll
+    if not exist src\main\resources\native mkdir src\main\resources\native
+    copy build\fastrobot.dll src\main\resources\native\fastrobot.dll /Y >nul
+    echo Copied fastrobot.dll to src\main\resources\native
 ) else (
     echo.
     echo ❌ Build failed
@@ -97,4 +101,3 @@ if %ERRORLEVEL% == 0 (
 )
 
 echo.
-pause
