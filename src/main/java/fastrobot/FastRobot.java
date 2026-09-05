@@ -2,6 +2,7 @@ package fastrobot;
 
 import fastcore.FastCore;
 import fastimage.FastImage;
+import fastscreen.FastScreen;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -16,11 +17,40 @@ import java.awt.image.BufferedImage;
  * - getPixelColor: ~100x faster (GetPixel vs createScreenCapture)
  * - createScreenCapture: ~5-10x faster (BitBlt direct to buffer)
  */
-public class FastRobot {
+public class FastRobot implements AutoCloseable {
     
     static {
         // Use FastCore for unified native library loading
         FastCore.loadLibrary("fastrobot");
+    }
+
+    private FastScreen fastScreen;
+
+    /**
+     * Initializes FastRobot with default hardware input and capture engines.
+     */
+    public FastRobot() {
+    }
+
+    /**
+     * Initializes FastRobot with an existing FastScreen instance.
+     *
+     * @param fastScreen FastScreen engine to use for screen capture and streaming
+     */
+    public FastRobot(FastScreen fastScreen) {
+        this.fastScreen = fastScreen;
+    }
+
+    /**
+     * Obtains the internal FastScreen instance, lazily instantiating it if necessary.
+     *
+     * @return active FastScreen instance
+     */
+    public synchronized FastScreen getFastScreen() {
+        if (fastScreen == null) {
+            fastScreen = new FastScreen();
+        }
+        return fastScreen;
     }
     
     // Native method declarations
@@ -326,5 +356,17 @@ public class FastRobot {
                 yield javaKeycode; // Pass through for other keys
             }
         };
+    }
+
+    /**
+     * Closes the robot session and releases associated capture/screen resources.
+     */
+    @Override
+    public synchronized void close() {
+        if (fastScreen != null) {
+            fastScreen.dispose();
+            fastScreen = null;
+        }
+        stopScreenStream();
     }
 }

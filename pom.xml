@@ -63,6 +63,13 @@
             <artifactId>FastImage</artifactId>
             <version>0.1.2</version>
         </dependency>
+
+        <!-- FastScreen - High-Speed DXGI Screen Capture Engine -->
+        <dependency>
+            <groupId>com.github.andrestubbe</groupId>
+            <artifactId>FastScreen</artifactId>
+            <version>0.1.2</version>
+        </dependency>
         
         <!-- JUnit 5 for testing -->
         <dependency>

@@ -103,17 +103,17 @@ Standard Java `java.awt.Robot` was designed in the late 1990s and has severe lim
 ┌─────────────────────────────────────────────────────────────┐
 │           Java Application (High-Speed Bot / Agent)         │
 └───────────────┬─────────────────────────────┬───────────────┘
-                │ Direct JNI Input            │ Low-Latency Capture
+                │ Direct JNI Input            │ Direct Screen Access
                 ▼                             ▼
 ┌───────────────────────────────┐ ┌───────────────────────────┐
-│     Native Win32 SendInput    │ │   DirectX DXGI / Native   │
-│   (Bypasses AWT Event Queue)  │ │   GDI DIBSection Capture  │
+│     Native Win32 SendInput    │ │         FastScreen        │
+│   (Bypasses AWT Event Queue)  │ │ (DirectX DXGI Duplication)│
 └───────────────┬───────────────┘ └───────────┬───────────────┘
-                │ <0.1ms injection            │ Off-heap frame reuse
+                │ <0.1ms injection            │ Zero-Copy Native Frames
                 ▼                             ▼
 ┌───────────────────────────────┐ ┌───────────────────────────┐
-│   Windows OS Input Subsystem  │ │   Zero-GC FastImage /     │
-│   (Hardware Keyboard / Mouse) │ │   Standard BufferedImage  │
+│   Windows OS Input Subsystem  │ │         FastImage         │
+│   (Hardware Keyboard / Mouse) │ │  (SIMD Anti-Aliasing / AA)│
 └───────────────────────────────┘ └───────────────────────────┘
 ```
 
@@ -173,6 +173,13 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
         <version>0.1.1</version>
     </dependency>
 
+    <!-- FastScreen High-FPS Screen Capture -->
+    <dependency>
+        <groupId>com.github.andrestubbe</groupId>
+        <artifactId>FastScreen</artifactId>
+        <version>0.1.2</version>
+    </dependency>
+
     <!-- FastImage Frame Processing -->
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
@@ -198,6 +205,7 @@ repositories {
 
 dependencies {
     implementation 'com.github.andrestubbe:FastRobot:0.1.1'
+    implementation 'com.github.andrestubbe:FastScreen:0.1.2'
     implementation 'com.github.andrestubbe:FastImage:0.1.2'
     implementation 'com.github.andrestubbe:FastCore:0.1.0'
 }
@@ -208,8 +216,9 @@ dependencies {
 Download the latest JARs directly to add them to your classpath:
 
 1. 📦 **[FastRobot-0.1.1.jar](https://github.com/andrestubbe/FastRobot/releases/tag/0.1.1)** (The Core Library)
-2. ⚡ **[FastImage-0.1.2.jar](https://github.com/andrestubbe/FastImage/releases/tag/0.1.2)** (The SIMD Image Engine)
-3. ⚙️ **[FastCore-0.1.0.jar](https://github.com/andrestubbe/FastCore/releases/tag/0.1.0)** (The Mandatory Native Loader)
+2. 🖥️ **[FastScreen-0.1.2.jar](https://github.com/andrestubbe/FastScreen/releases/tag/0.1.2)** (High-FPS Screen Capture)
+3. ⚡ **[FastImage-0.1.2.jar](https://github.com/andrestubbe/FastImage/releases/tag/0.1.2)** (The SIMD Image Engine)
+4. ⚙️ **[FastCore-0.1.0.jar](https://github.com/andrestubbe/FastCore/releases/tag/0.1.0)** (The Mandatory Native Loader)
 
 > [!IMPORTANT]
 > All JARs must be in your classpath for the native JNI calls to function correctly.
