@@ -100,22 +100,21 @@ Standard Java `java.awt.Robot` was designed in the late 1990s and has severe lim
 ## Architecture & Pipeline
 
 ```
-┌────────────────────────────────────────────────────────┐
-│                   Java Application                     │
-└───────────────┬────────────────────────┬───────────────┘
-                │ Direct JNI Calls       │ FastImage Bridge
-                ▼                        ▼
-┌───────────────────────────────┐ ┌──────────────────────┐
-│  fastrobot.dll (Native C++)   │ │      FastImage       │
-├───────────────┬───────────────┤ │  (SIMD / Off-Heap)   │
-│ Win32         │ Native GDI /  │ └──────────┬───────────┘
-│ SendInput     │ DXGI Capture  │            │
-└───────┬───────┴───────┬───────┘            ▼
-        │               └─────────────► Zero-Copy Frame
-        ▼
-┌───────────────────────────────┐
-│ Windows OS & Hardware Drivers │
-└───────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│           Java Application (High-Speed Bot / Agent)         │
+└───────────────┬─────────────────────────────┬───────────────┘
+                │ Direct JNI Input            │ Low-Latency Capture
+                ▼                             ▼
+┌───────────────────────────────┐ ┌───────────────────────────┐
+│     Native Win32 SendInput    │ │   DirectX DXGI / Native   │
+│   (Bypasses AWT Event Queue)  │ │   GDI DIBSection Capture  │
+└───────────────┬───────────────┘ └───────────┬───────────────┘
+                │ <0.1ms injection            │ Off-heap frame reuse
+                ▼                             ▼
+┌───────────────────────────────┐ ┌───────────────────────────┐
+│   Windows OS Input Subsystem  │ │   Zero-GC FastImage /     │
+│   (Hardware Keyboard / Mouse) │ │   Standard BufferedImage  │
+└───────────────────────────────┘ └───────────────────────────┘
 ```
 
 ---
