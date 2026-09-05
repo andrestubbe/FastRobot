@@ -2,10 +2,14 @@
 
 **Vision:** To provide the fastest possible native primitives for robot automation by aggressively bypassing bottlenecks in standard Java.
 
-## 🟢 v0.1.0: Initial Release (Current)
-- [x] **Core Native Engine**: Basic JNI implementation.
+## 🟢 v0.1.0: Initial Release (Completed)
+- [x] **Core Native Engine**: Basic JNI implementation for Win32 SendInput and screen capture.
 - [x] **Blueprint Standards**: README, Reference, and Philosophy integration.
-- [ ] **Basic Performance Suite**: Initial benchmarks vs standard Java.
+
+## 🟢 v0.1.1: FastImage Interop & Modern Toolchain (Current)
+- [x] **FastImage Ecosystem Integration**: Direct `captureImage(...)` and zero-copy `getFrameImage()` bridge.
+- [x] **Visual Studio 2026/2022 Auto-Detection**: Universal build automation via `vswhere.exe`.
+- [x] **JMH Benchmark Suite**: Official comparative benchmark suite against `java.awt.Robot`.
 
 ## 🟡 v0.2.0: Optimization Phase
 - [ ] **SIMD Acceleration**: Implement AVX2/SSE4.2 paths for core loops.

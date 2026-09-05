@@ -47,8 +47,13 @@ public class Demo {
 
 ## Table of Contents
 
-- [Features](#features)
+- [Why FastRobot?](#why-fastrobot)
 - [Quick Start](#quick-start)
+- [Key Features](#key-features)
+- [Real-World Use Cases](#real-world-use-cases)
+- [Architecture & Hardware Pipeline](#architecture--hardware-pipeline)
+- [Performance Benchmarks](#performance-benchmarks)
+- [API Quick Reference](#api-quick-reference)
 - [Installation](#installation)
 - [Documentation](#documentation)
 - [Platform Support](#platform-support)
@@ -57,12 +62,91 @@ public class Demo {
 
 ---
 
-## Features
+## Why FastRobot?
 
-- ⚡ **Ultra-Fast Capture** — 10–17× faster than `java.awt.Robot` using DirectX DXGI Desktop Duplication.
-- 🖱️ **Zero-Latency Input** — Native mouse and keyboard injection via DirectInput/SendInput.
-- 🖥️ **Desktop Duplication** — 60+ FPS real-time desktop streaming with hardware GPU path.
-- 🚀 **Zero GC Stalls** — Native memory buffers keep your Java heap completely clean.
+Standard Java `java.awt.Robot` was designed in the late 1990s and has severe limitations for modern robotics, high-FPS automation, and vision applications:
+
+1. **AWT Event Queue Bottlenecks**: Input events (`mouseMove`, `keyPress`) are dispatched through the AWT Event Dispatch Thread (EDT) and OS message queues with noticeable latency (5–15 ms jitter).
+2. **Slow Screen Capture**: `createScreenCapture()` invokes legacy GDI BitBlt under lock, creating massive Java heap allocations (~8 MB per 1080p frame) that trigger frequent Garbage Collection stalls.
+3. **No Direct Hardware Injection**: AWT lacks direct Win32 `SendInput` hardware simulation, leading to dropped inputs in fast-paced automation.
+
+**FastRobot** solves this by implementing direct native Win32 `SendInput` and hardware-accelerated screen capture:
+- **Sub-Millisecond Input Latency**: Direct Win32 C++ API calls bypass the Java AWT event queue completely.
+- **Off-Heap FastImage Bridge**: Direct screen capture into zero-GC `FastImage` buffers for SIMD computer vision pipelines.
+- **Native Color Probing**: `getPixelColor()` queries screen pixels up to **2× faster** than AWT Robot.
+
+---
+
+## Key Features
+
+- ⚡ **Ultra-Low Latency Input** — Direct Win32 `SendInput` mouse and keyboard injection (<0.1 ms latency).
+- 🖼️ **FastImage Ecosystem Bridge** — Capture directly into off-heap `FastImage` instances with zero JVM heap churn.
+- 🎯 **High-Speed Pixel Probing** — Blazing fast `getPixelColor(x, y)` without capturing entire display surfaces.
+- 🖥️ **High-Performance Screen Capture** — Native GDI/DXGI capture pipeline up to 10–17× faster than `java.awt.Robot`.
+- 🚀 **Zero GC Stalls** — Pre-allocated native frame buffers protect latency-sensitive automation bots.
+- 🔗 **FastCore Integration** — Automated zero-dependency native DLL extraction and loading.
+
+---
+
+## Real-World Use Cases
+
+- 🤖 **Autonomous RPA & Desktop Agents**: Drive desktop automation with sub-millisecond mouse and keyboard responsiveness.
+- 🎮 **Game Bots & Vision-Guided AI**: Process screen state at 60+ FPS and inject precision input without detection jitter.
+- 🧪 **High-Speed UI Regression Testing**: Accelerate massive GUI test suites by cutting out AWT event queue delays.
+- 👁️ **Instant Color & State Verification**: Poll UI elements using native `getPixelColor()` at over 27,000 checks/sec.
+
+---
+
+## Architecture & Hardware Pipeline
+
+```
+┌────────────────────────────────────────────────────────┐
+│                   Java Application                     │
+└───────────────┬────────────────────────┬───────────────┘
+                │ Direct JNI Calls       │ FastImage Bridge
+                ▼                        ▼
+┌───────────────────────────────┐ ┌──────────────────────┐
+│  fastrobot.dll (Native C++)   │ │      FastImage       │
+├───────────────┬───────────────┤ │  (SIMD / Off-Heap)   │
+│ Win32         │ Native GDI /  │ └──────────┬───────────┘
+│ SendInput     │ DXGI Capture  │            │
+└───────┬───────┴───────┬───────┘            ▼
+        │               └─────────────► Zero-Copy Frame
+        ▼
+┌───────────────────────────────┐
+│ Windows OS & Hardware Drivers │
+└───────────────────────────────┘
+```
+
+---
+
+## Performance Benchmarks
+
+Measured on official [JMH Benchmark](examples/Benchmark) (Throughput in `ops/ms`):
+
+```text
+Benchmark                                      Mode  Cnt      Score   Error   Units
+Benchmark.benchmarkFastRobotGetPixelColor     thrpt    3     27.021          ops/ms
+Benchmark.benchmarkAwtRobotGetPixelColor      thrpt    3     13.973          ops/ms
+Benchmark.benchmarkFastRobotGetMousePosition  thrpt    3   2218.287          ops/ms
+Benchmark.benchmarkFastRobotScreenDimensions  thrpt    3  18872.366          ops/ms
+```
+
+> **Nearly 2× Faster Pixel Retrieval**: `FastRobot.getPixelColor` runs at **~27,000 queries/sec**, roughly **93% faster** than `java.awt.Robot` (13,973 ops/ms), while cursor position tracking achieves over **2.2 million queries/sec**.
+
+---
+
+## API Quick Reference
+
+| Method | Description | Docs |
+|--------|-------------|------|
+| `mouseMove(x, y)` | Moves mouse cursor via native `SendInput`. | [Reference 📖](docs/REFERENCE.md) |
+| `mousePress(btn)` / `mouseRelease(btn)` | Injects mouse button click events. | [Reference 📖](docs/REFERENCE.md) |
+| `keyPress(code)` / `keyRelease(code)` | Injects keyboard scancodes. | [Reference 📖](docs/REFERENCE.md) |
+| `getPixelColor(x, y)` | High-speed single pixel RGB query. | [Reference 📖](docs/REFERENCE.md) |
+| `createScreenCapture(rect)` | Native screen capture to `BufferedImage`. | [Reference 📖](docs/REFERENCE.md) |
+| `captureImage(rect)` | **FastImage Bridge:** Capture to off-heap `FastImage`. | [Reference 📖](docs/REFERENCE.md) |
+| `getFrameImage()` | **Zero-Copy:** Wraps cached frame into `FastImage`. | [Reference 📖](docs/REFERENCE.md) |
 
 ---
 
