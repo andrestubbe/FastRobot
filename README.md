@@ -51,7 +51,7 @@ public class Demo {
 - [Quick Start](#quick-start)
 - [Key Features](#key-features)
 - [Real-World Use Cases](#real-world-use-cases)
-- [Architecture & Hardware Pipeline](#architecture--hardware-pipeline)
+- [Architecture & Pipeline](#architecture--pipeline)
 - [Performance Benchmarks](#performance-benchmarks)
 - [API Quick Reference](#api-quick-reference)
 - [Installation](#installation)
@@ -97,7 +97,7 @@ Standard Java `java.awt.Robot` was designed in the late 1990s and has severe lim
 
 ---
 
-## Architecture & Hardware Pipeline
+## Architecture & Pipeline
 
 ```
 ┌────────────────────────────────────────────────────────┐
