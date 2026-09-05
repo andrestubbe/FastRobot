@@ -132,7 +132,8 @@ Benchmark.benchmarkFastRobotGetMousePosition  thrpt    3   2218.287          ops
 Benchmark.benchmarkFastRobotScreenDimensions  thrpt    3  18872.366          ops/ms
 ```
 
-> **Nearly 2× Faster Pixel Retrieval**: `FastRobot.getPixelColor` runs at **~27,000 queries/sec**, roughly **93% faster** than `java.awt.Robot` (13,973 ops/ms), while cursor position tracking achieves over **2.2 million queries/sec**.
+> [!NOTE]
+> **Environment & Setup**: Measured on an Intel Core i7 with Windows 11. `FastRobot.getPixelColor` runs at **~27,000 queries/sec**, roughly **93% faster** than `java.awt.Robot` (13,973 ops/ms), while cursor position tracking achieves over **2.2 million queries/sec**.
 
 ---
 
