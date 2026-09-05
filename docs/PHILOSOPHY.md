@@ -1,29 +1,29 @@
-# The Philosophy of FastXXX
+# The Philosophy of FastRobot 💡
 
 > [!IMPORTANT]
 > **"Keine Kopien. Niemals. Kritischer JNI-Pfad. Native-First Performance."**
 
-FastXXX is built on the principle that modern Java applications require **native-first** acceleration for performance-critical operations that the standard JVM APIs don't fully optimize.
+FastRobot is built on the conviction that desktop automation, bot control, and UI interaction in Java should never be bottlenecked by legacy AWT event queue delays, high-latency input simulation, or garbage-producing screen captures.
 
 ## Core Tenets
 
-1.  **Native-First Execution**
-    Bypass standard Java layers to reach the physical limits of the hardware using hand-tuned C++ and SIMD intrinsics.
+1.  **Direct Win32 Hardware Simulation**
+    Bypass the Java AWT Event Dispatch Thread (EDT) completely by executing low-latency mouse and keyboard input directly through the native Win32 `SendInput` API (<0.1 ms latency).
 
-2.  **Zero-Copy JNI Architecture**
-    Minimize JNI transition costs by using direct memory access patterns and avoiding implicit memory copies between the JVM and the native layer.
+2.  **Ultra-Fast Native Screen Capture**
+    Provide native DirectX DXGI and GDI DIBSection capture pipelines delivering 10–17× higher throughput than `java.awt.Robot.createScreenCapture()`.
 
-3.  **Deterministic Latency**
-    Eliminate variance caused by JIT warm-up or garbage collection stalls in critical hot-paths.
+3.  **Zero JVM Garbage Churn**
+    Eliminate the multi-megabyte heap allocations of standard `BufferedImage` captures through reusable native frame buffers and direct off-heap memory mapping.
 
-4.  **Hardware-Aware Optimization**
-    Leverage modern CPU features (AVX, SSE, NEON) to process data at hardware-native speeds.
+4.  **Ecosystem Synergy with FastImage**
+    Bridge captured screen regions directly into `FastImage` instances without copying memory, unlocking immediate AVX2 SIMD computer vision preprocessing.
 
-5.  **Blueprint Consistency**
-    As part of the **FastJava** ecosystem, FastXXX adheres to a standardized architecture:
-    *   **Native Backend**: Direct C++ implementation.
-    *   **Unified Loading**: Powered by `FastCore`.
-    *   **Premium Quality**: Built for high-performance systems and autonomous agents.
+5.  **FastJava Blueprint Consistency**
+    As part of the **FastJava** ecosystem:
+    *   **Native Backend**: Direct C++ implementation with Win32 SendInput and DXGI.
+    *   **Unified Loading**: Powered by `FastCore` for seamless zero-dependency deployment.
+    *   **Production Quality**: High responsiveness, deterministic execution, and thorough JMH verification.
 
 ---
-**⚡ FastXXX — Powering the next generation of Native Java.**
+**⚡ FastRobot — Powering the next generation of Native Java.**

@@ -1,26 +1,56 @@
-# Building FastRobot
+# Building FastRobot 🛠️
 
-Guide for developers building FastRobot from source.
+Complete build guide for compiling the native C++ Win32 SendInput and DirectX capture engine and packaging the Java JAR.
+
+---
 
 ## Prerequisites
 
-- **JDK 17+** — [Download](https://adoptium.net/)
-- **Maven 3.9+** — [Download](https://maven.apache.org/download.cgi)
-- **Visual Studio 2019 or 2022** — [Download](https://visualstudio.microsoft.com/downloads/)
-  - Required: "Desktop development with C++" workload
-  - Required: Windows 10/11 SDK
+* **Windows 10 or 11 (64-bit)**
+* **JDK 17+** ([Eclipse Adoptium](https://adoptium.net/) or [Oracle JDK](https://www.oracle.com/java/technologies/downloads/))
+* **Visual Studio 2022 or 2026** (Community, Professional, or Enterprise) with "Desktop development with C++" workload
+* **Windows 10/11 SDK** (installed with Visual Studio)
+* **Maven 3.9+**
 
-## Quick Build
+---
+
+## Automated One-Click Build
+
+FastRobot includes an automated compilation script with Visual Studio and JDK discovery:
+
+```cmd
+# In the FastRobot repository root:
+compile.bat
+```
+
+What `compile.bat` does automatically:
+1. Detects Visual Studio 2026 / 2022 Community via `vswhere.exe`.
+2. Initializes the 64-bit developer environment (`vcvars64.bat`).
+3. Compiles `native/fastrobot.cpp` and `native/DXGICapture.cpp` with `/O2` and links Win32 user/GDI and DirectX libraries.
+4. Deploys `fastrobot.dll` directly to:
+   - `build/fastrobot.dll`
+   - `src/main/resources/native/fastrobot.dll`
+   - `%USERPROFILE%\.fastcore\native\fastrobot\fastrobot.dll`
+
+---
+
+## Maven Java Packaging
 
 ```bash
-# Clone repository
-git clone https://github.com/andrestubbe/fastrobot.git
-cd fastrobot
-
-# Build native DLL + Java
-compile.bat
-mvn clean package
+mvn clean install -DskipTests
 ```
+
+---
+
+## JMH Benchmarking
+
+To build and execute the official JMH benchmark suite:
+
+```cmd
+run-benchmark.bat
+```
+
+---
 
 ## Build Commands
 
