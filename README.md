@@ -11,6 +11,8 @@
 FastRobot is built for developers who need raw speed. Whether it's high-FPS screen streaming, low-latency bot input,
 or computer vision at 60+ FPS, FastRobot delivers where the standard AWT Robot fails.
 
+Watch Demo (YouTube) | Watch JMH Benchmark (YouTube)
+
 [![FastRobot Showcase](docs/screenshot.png)](https://www.youtube.com/watch?v=BZsqQl7WqWk)
 
 ---
