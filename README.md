@@ -1,4 +1,4 @@
-# FastRobot 0.1.1 [ALPHA-2026-09-04] — High-FPS Screen Capture & Native Automation for Java
+﻿# FastRobot 0.1.1 [ALPHA-2026-09-04] — Low-Latency Native Automation & Bot Substrate for Java
 
 [![Status](https://img.shields.io/badge/status-0.1.1-brightgreen.svg)](https://github.com/andrestubbe/FastRobot/releases/tag/0.1.1)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -6,10 +6,13 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
 [![JitPack](https://img.shields.io/badge/JitPack-ready-green.svg)](https://jitpack.io/#andrestubbe/FastRobot)
 
-**🤖 The high-performance alternative to `java.awt.Robot` — 10–17× faster screen capture and 5–15× faster input events using DirectX and GDI.**
+---
 
-FastRobot is built for developers who need raw speed. Whether it's high-FPS screen streaming, low-latency bot input,
-or computer vision at 60+ FPS, FastRobot delivers where the standard AWT Robot fails.
+**🤖 The high-performance alternative to `java.awt.Robot` — sub-millisecond native input injection, microsecond pixel probing, and zero-allocation FastImage & FastScreen bridge.**
+
+**FastRobot** is the native automation, input injection, and bot-control substrate of the **FastJava** ecosystem. Where standard Java `Robot` introduces severe AWT Event Dispatch Thread (EDT) jitter, slow synchronous GDI locks, and garbage collection stalls, FastRobot communicates directly with the Windows OS input subsystem via native Win32 `SendInput`.
+
+For vision-guided automation, FastRobot seamlessly bridges with **[FastImage](https://github.com/andrestubbe/FastImage)** for zero-allocation SIMD image processing and partners with **[FastScreen](https://github.com/andrestubbe/FastScreen)**—the dedicated 240–2000 FPS DirectX DXGI desktop duplication engine—to provide a complete, ultra-fast robotics and automation stack.
 
 Watch Demo (YouTube) | Watch JMH Benchmark (YouTube)
 
@@ -21,26 +24,31 @@ Watch Demo (YouTube) | Watch JMH Benchmark (YouTube)
 
 ```java
 import fastrobot.FastRobot;
-import java.awt.image.BufferedImage;
+import fastimage.FastImage;
+import java.awt.Rectangle;
 
 public class Demo {
     public static void main(String[] args) {
         FastRobot robot = new FastRobot();
 
-        // 1. Direct Low-Latency Mouse Movement & Click (10-50x faster than AWT Robot)
+        // 1. Direct Low-Latency Mouse Movement & Click (bypasses AWT EDT queue)
         robot.mouseMove(500, 300);
         robot.mousePress(1);   // Left Button Down
         robot.mouseRelease(1); // Left Button Up
 
-        // 2. High-Speed Screen Capture via Direct Native BitBlt / DXGI
-        int width = 800;
-        int height = 600;
-        BufferedImage screen = robot.createScreenCapture(0, 0, width, height);
-        System.out.println("Captured screen frame: " + screen.getWidth() + "x" + screen.getHeight());
-
-        // 3. Ultra-Fast Single Pixel Color Probe (GetPixel without capturing screen)
+        // 2. Ultra-Fast Single Pixel Color Probe (direct Win32 GetPixel without screen dumps)
         int rgb = robot.getPixelColor(100, 100);
-        System.out.printf("Pixel at (100, 100) RGB: #%06X\n", (rgb & 0xFFFFFF));
+        System.out.printf("Pixel at (100, 100) RGB: #%06X%n", (rgb & 0xFFFFFF));
+
+        // 3. FastImage Bridge: Capture directly to off-heap SIMD image (zero heap GC)
+        FastImage targetArea = robot.captureImage(0, 0, 400, 300);
+        if (targetArea != null) {
+            System.out.println("Captured FastImage bounds: " + targetArea.getWidth() + "x" + targetArea.getHeight());
+            targetArea.dispose();
+        }
+
+        // NOTE: For dedicated 240-2000 FPS desktop streaming with DXGI hardware acceleration,
+        // use FastRobot's companion module: FastScreen!
     }
 }
 ```
@@ -50,10 +58,10 @@ public class Demo {
 ## Table of Contents
 
 - [Why FastRobot?](#why-fastrobot)
+- [Ecosystem Architecture (FastRobot + FastScreen + FastImage)](#ecosystem-architecture)
 - [Quick Start](#quick-start)
 - [Key Features](#key-features)
 - [Real-World Use Cases](#real-world-use-cases)
-- [Architecture & Pipeline](#architecture--pipeline)
 - [Performance Benchmarks](#performance-benchmarks)
 - [API Quick Reference](#api-quick-reference)
 - [Installation](#installation)
@@ -69,23 +77,52 @@ public class Demo {
 Standard Java `java.awt.Robot` was designed in the late 1990s and has severe limitations for modern robotics, high-FPS automation, and vision applications:
 
 1. **AWT Event Queue Bottlenecks**: Input events (`mouseMove`, `keyPress`) are dispatched through the AWT Event Dispatch Thread (EDT) and OS message queues with noticeable latency (5–15 ms jitter).
-2. **Slow Screen Capture**: `createScreenCapture()` invokes legacy GDI BitBlt under lock, creating massive Java heap allocations (~8 MB per 1080p frame) that trigger frequent Garbage Collection stalls.
-3. **No Direct Hardware Injection**: AWT lacks direct Win32 `SendInput` hardware simulation, leading to dropped inputs in fast-paced automation.
+2. **Massive GC Stalls on Screen Dumps**: `createScreenCapture()` copies GDI bitmaps onto the Java heap (~8 MB per 1080p frame), triggering frequent Garbage Collection pauses that freeze automation loops.
+3. **No Direct Hardware Injection**: AWT lacks direct Win32 `SendInput` hardware simulation, leading to dropped or desynchronized inputs in fast-paced scenarios.
 
-**FastRobot** solves this by implementing direct native Win32 `SendInput` and hardware-accelerated screen capture:
-- **Sub-Millisecond Input Latency**: Direct Win32 C++ API calls bypass the Java AWT event queue completely.
-- **Off-Heap FastImage Bridge**: Direct screen capture into zero-GC `FastImage` buffers for SIMD computer vision pipelines.
-- **Native Color Probing**: `getPixelColor()` queries screen pixels up to **2× faster** than AWT Robot.
+**FastRobot** redefines Java automation by focusing on what matters:
+
+- **Sub-Millisecond Input Latency**: Direct native Win32 `SendInput` calls bypass the JVM AWT event queue entirely (<0.1 ms execution).
+- **FastImage Ecosystem Bridge**: Native screen captures can be delivered directly into off-heap `FastImage` buffers (`captureImage()`, `getFrameImage()`) with zero heap churn.
+- **Microsecond Color Probing**: `getPixelColor()` queries screen pixels up to **2× faster** than AWT Robot without locking or copying full screen surfaces.
+- **Clean Decoupling with FastScreen**: While FastRobot provides built-in GDI capture convenience, high-throughput DirectX 11 / DXGI Desktop Duplication (240–2000 FPS) is delegated to **[FastScreen](https://github.com/andrestubbe/FastScreen)**, giving you the fastest possible screen-reading pipeline in the JVM.
+
+---
+
+## Ecosystem Architecture
+
+FastRobot works harmoniously with the FastJava perception and manipulation modules:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    Autonomous Bot / Vision Agent                        │
+└────────────────┬───────────────────────────────────────┬────────────────┘
+                 │ 1. Decision & Input Actions           │ 2. Visual Feedback
+                 ▼                                       ▼
+ ┌───────────────────────────────┐       ┌───────────────────────────────┐
+ │           FastRobot           │       │           FastScreen          │
+ │  • Win32 SendInput (<0.1ms)   │       │  • DXGI 1.2 Desktop Dup       │
+ │  • Instant getPixelColor()    │       │  • 240–2000 FPS Zero-Copy     │
+ │  • Mouse / Keyboard Injection │       │  • Window Mirror Exclusion    │
+ └───────────────┬───────────────┘       └───────────────┬───────────────┘
+                 │                                       │ Native Frame Addr
+                 ▼                                       ▼
+ ┌───────────────────────────────┐       ┌───────────────────────────────┐
+ │        Windows OS Subsystem   │       │           FastImage           │
+ │  (Hardware Input / Message)   │       │  • SIMD Resizing & Filtering  │
+ └───────────────────────────────┘       │  • Zero-GC Off-Heap Container │
+                                         └───────────────────────────────┘
+```
 
 ---
 
 ## Key Features
 
 - ⚡ **Ultra-Low Latency Input** — Direct Win32 `SendInput` mouse and keyboard injection (<0.1 ms latency).
-- 🖼️ **FastImage Ecosystem Bridge** — Capture directly into off-heap `FastImage` instances with zero JVM heap churn.
-- 🎯 **High-Speed Pixel Probing** — Blazing fast `getPixelColor(x, y)` without capturing entire display surfaces.
-- 🖥️ **High-Performance Screen Capture** — Native GDI/DXGI capture pipeline up to 10–17× faster than `java.awt.Robot`.
-- 🚀 **Zero GC Stalls** — Pre-allocated native frame buffers protect latency-sensitive automation bots.
+- 🖼️ **FastImage Bridge** — Capture directly into off-heap `FastImage` instances (`captureImage()`, `getFrameImage()`) with zero JVM heap churn.
+- 🎯 **High-Speed Pixel Probing** — Blazing fast `getPixelColor(x, y)` running at >27,000 queries/second.
+- 🖥️ **Integrated Screen Convenience** — Built-in fast region capture for lightweight checks; seamlessly links with `FastScreen` for continuous 240+ FPS streams.
+- 🚀 **Zero GC Stalls** — Avoids Java heap allocations in hot automation paths.
 - 🔗 **FastCore Integration** — Automated zero-dependency native DLL extraction and loading.
 
 ---
@@ -93,31 +130,9 @@ Standard Java `java.awt.Robot` was designed in the late 1990s and has severe lim
 ## Real-World Use Cases
 
 - 🤖 **Autonomous RPA & Desktop Agents**: Drive desktop automation with sub-millisecond mouse and keyboard responsiveness.
-- 🎮 **Game Bots & Vision-Guided AI**: Process screen state at 60+ FPS and inject precision input without detection jitter.
+- 🎮 **Game Bots & Vision-Guided AI**: Process screen state via `FastScreen` / `FastImage` and inject precision inputs via `FastRobot` without detection jitter.
 - 🧪 **High-Speed UI Regression Testing**: Accelerate massive GUI test suites by cutting out AWT event queue delays.
-- 👁️ **Instant Color & State Verification**: Poll UI elements using native `getPixelColor()` at over 27,000 checks/sec.
-
----
-
-## Architecture & Pipeline
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│           Java Application (High-Speed Bot / Agent)         │
-└───────────────┬─────────────────────────────┬───────────────┘
-                │ Direct JNI Input            │ Direct Screen Access
-                ▼                             ▼
-┌───────────────────────────────┐ ┌───────────────────────────┐
-│     Native Win32 SendInput    │ │         FastScreen        │
-│   (Bypasses AWT Event Queue)  │ │ (DirectX DXGI Duplication)│
-└───────────────┬───────────────┘ └───────────┬───────────────┘
-                │ <0.1ms injection            │ Zero-Copy Native Frames
-                ▼                             ▼
-┌───────────────────────────────┐ ┌───────────────────────────┐
-│   Windows OS Input Subsystem  │ │         FastImage         │
-│   (Hardware Keyboard / Mouse) │ │  (SIMD Anti-Aliasing / AA)│
-└───────────────────────────────┘ └───────────────────────────┘
-```
+- 👁️ **Instant Color & State Verification**: Poll UI elements and trigger buttons using native `getPixelColor()` at over 27,000 checks/sec.
 
 ---
 
@@ -134,7 +149,7 @@ Benchmark.benchmarkFastRobotScreenDimensions  thrpt    3  18872.366          ops
 ```
 
 > [!NOTE]
-> **Environment & Setup**: Measured on an Intel Core i7 with Windows 11. `FastRobot.getPixelColor` runs at **~27,000 queries/sec**, roughly **93% faster** than `java.awt.Robot` (13,973 ops/ms), while cursor position tracking achieves over **2.2 million queries/sec**.
+> **Environment & Setup**: Measured on Windows 11 (x64), JDK 21. `FastRobot.getPixelColor` runs at **~27,000 queries/sec**, roughly **93% faster** than `java.awt.Robot` (13,973 ops/ms), while cursor position tracking achieves over **2.2 million queries/sec**.
 
 ---
 
@@ -145,13 +160,13 @@ Benchmark.benchmarkFastRobotScreenDimensions  thrpt    3  18872.366          ops
 | `mouseMove(x, y)` | Moves mouse cursor via native `SendInput`. | [Reference 📖](docs/REFERENCE.md) |
 | `mousePress(btn)` / `mouseRelease(btn)` | Injects mouse button click events. | [Reference 📖](docs/REFERENCE.md) |
 | `keyPress(code)` / `keyRelease(code)` | Injects keyboard scancodes. | [Reference 📖](docs/REFERENCE.md) |
-| `getPixelColor(x, y)` | High-speed single pixel RGB query. | [Reference 📖](docs/REFERENCE.md) |
-| `createScreenCapture(rect)` | Native screen capture to `BufferedImage`. | [Reference 📖](docs/REFERENCE.md) |
-| `captureImage(rect)` | **FastImage Bridge:** Capture to off-heap `FastImage`. | [Reference 📖](docs/REFERENCE.md) |
-| `getFrameImage()` | **Zero-Copy:** Wraps cached frame into `FastImage`. | [Reference 📖](docs/REFERENCE.md) |
+| `getPixelColor(x, y)` | High-speed single pixel RGB query without full screen capture. | [Reference 📖](docs/REFERENCE.md) |
+| `captureImage(rect)` | **FastImage Bridge:** Capture region directly to off-heap `FastImage`. | [Reference 📖](docs/REFERENCE.md) |
+| `captureImage(x, y, w, h)` | **FastImage Bridge:** Capture with primitive coordinates to `FastImage`. | [Reference 📖](docs/REFERENCE.md) |
+| `getFrameImage()` | **FastImage Bridge:** Wraps streaming frame into `FastImage`. | [Reference 📖](docs/REFERENCE.md) |
+| `createScreenCapture(rect)` | Native screen capture to standard `BufferedImage`. | [Reference 📖](docs/REFERENCE.md) |
 
 ---
-
 
 ## Installation
 
@@ -168,28 +183,28 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
 </repositories>
 
 <dependencies>
-    <!-- FastRobot Library -->
+    <!-- FastRobot - Low-Latency Native Input & Bot Automation -->
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
         <artifactId>FastRobot</artifactId>
         <version>0.1.1</version>
     </dependency>
 
-    <!-- FastScreen High-FPS Screen Capture -->
+    <!-- FastScreen - Dedicated High-FPS DXGI Screen Capture Engine (Optional / Companion) -->
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
         <artifactId>FastScreen</artifactId>
-        <version>0.1.2</version>
+        <version>0.1.4</version>
     </dependency>
 
-    <!-- FastImage Frame Processing -->
+    <!-- FastImage - Zero-Copy Frame Container & SIMD Processing -->
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
         <artifactId>FastImage</artifactId>
         <version>0.1.2</version>
     </dependency>
 
-    <!-- FastCore (Required Native Loader) -->
+    <!-- FastCore - Required Native Loader -->
     <dependency>
         <groupId>com.github.andrestubbe</groupId>
         <artifactId>FastCore</artifactId>
@@ -207,7 +222,7 @@ repositories {
 
 dependencies {
     implementation 'com.github.andrestubbe:FastRobot:0.1.1'
-    implementation 'com.github.andrestubbe:FastScreen:0.1.2'
+    implementation 'com.github.andrestubbe:FastScreen:0.1.4'
     implementation 'com.github.andrestubbe:FastImage:0.1.2'
     implementation 'com.github.andrestubbe:FastCore:0.1.0'
 }
@@ -217,13 +232,10 @@ dependencies {
 
 Download the latest JARs directly to add them to your classpath:
 
-1. 📦 **[FastRobot-0.1.1.jar](https://github.com/andrestubbe/FastRobot/releases/tag/0.1.1)** (The Core Library)
-2. 🖥️ **[FastScreen-0.1.2.jar](https://github.com/andrestubbe/FastScreen/releases/tag/0.1.2)** (High-FPS Screen Capture)
+1. 📦 **[FastRobot-0.1.1.jar](https://github.com/andrestubbe/FastRobot/releases/tag/0.1.1)** (The Core Automation Library)
+2. 🖥️ **[FastScreen-0.1.4.jar](https://github.com/andrestubbe/FastScreen/releases/tag/0.1.4)** (Dedicated 240–2000 FPS Screen Capture)
 3. ⚡ **[FastImage-0.1.2.jar](https://github.com/andrestubbe/FastImage/releases/tag/0.1.2)** (The SIMD Image Engine)
 4. ⚙️ **[FastCore-0.1.0.jar](https://github.com/andrestubbe/FastCore/releases/tag/0.1.0)** (The Mandatory Native Loader)
-
-> [!IMPORTANT]
-> All JARs must be in your classpath for the native JNI calls to function correctly.
 
 ---
 
@@ -254,12 +266,13 @@ MIT License — See [LICENSE](LICENSE) file for details.
 
 ## Related Projects
 
-- [FastCore](https://github.com/andrestubbe/FastCore) — Native Library Loader for Java
-- [FastScreen](https://github.com/andrestubbe/FastScreen) — High-Performance Native Screen Capture for Java
+- [FastScreen](https://github.com/andrestubbe/FastScreen) — High-Performance Native DXGI Screen Capture for Java (240–2000 FPS)
+- [FastImage](https://github.com/andrestubbe/FastImage) — Ultra-Fast Native SIMD Image Processing for Java
+- [FastCore](https://github.com/andrestubbe/FastCore) — Native Library Loader and Platform Utilities
 - [FastMouse](https://github.com/andrestubbe/FastMouse) — Native Mouse API for Java
 - [FastKeyboard](https://github.com/andrestubbe/FastKeyboard) — Native Windows RawInput API for Java
 - [FastOCR](https://github.com/andrestubbe/FastOCR) — Ultra-Fast Native OCR for Java
-- [FastImage](https://github.com/andrestubbe/FastImage) — Ultra-Fast Native Image Processing for Java
 
 ---
-**Part of the FastJava Ecosystem** — *Making the JVM faster. ⚡*
+
+**Part of the FastJava Ecosystem** — *Making the JVM faster. Small package. Maximum speed. Zero bloat. 🚀📋*
