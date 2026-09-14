@@ -155,16 +155,16 @@ Benchmark.benchmarkFastRobotScreenDimensions  thrpt    3  18872.366          ops
 
 ## API Quick Reference
 
-| Method | Description |
-|---|---|
-| `mouseMove(x, y)` | Moves mouse cursor via native `SendInput`. |
-| `mousePress(btn)` / `mouseRelease(btn)` | Injects mouse button click events. |
-| `keyPress(code)` / `keyRelease(code)` | Injects keyboard scancodes. |
-| `getPixelColor(x, y)` | High-speed single pixel RGB query without full screen capture. |
-| `captureImage(rect)` | **FastImage Bridge:** Capture region directly to off-heap `FastImage`. |
-| `captureImage(x, y, w, h)` | **FastImage Bridge:** Capture with primitive coordinates to `FastImage`. |
-| `getFrameImage()` | **FastImage Bridge:** Wraps streaming frame into `FastImage`. |
-| `createScreenCapture(rect)` | Native screen capture to standard `BufferedImage`. |
+| Method | Description | Docs |
+|---|---|---|
+| `mouseMove(x, y)` | Moves mouse cursor via native `SendInput`. | [Reference](docs/REFERENCE.md) |
+| `mousePress(btn)` / `mouseRelease(btn)` | Injects mouse button click events. | [Reference](docs/REFERENCE.md) |
+| `keyPress(code)` / `keyRelease(code)` | Injects keyboard scancodes. | [Reference](docs/REFERENCE.md) |
+| `getPixelColor(x, y)` | High-speed single pixel RGB query without full screen capture. | [Reference](docs/REFERENCE.md) |
+| `captureImage(rect)` | **FastImage Bridge:** Capture region directly to off-heap `FastImage`. | [Reference](docs/REFERENCE.md) |
+| `captureImage(x, y, w, h)` | **FastImage Bridge:** Capture with primitive coordinates to `FastImage`. | [Reference](docs/REFERENCE.md) |
+| `getFrameImage()` | **FastImage Bridge:** Wraps streaming frame into `FastImage`. | [Reference](docs/REFERENCE.md) |
+| `createScreenCapture(rect)` | Native screen capture to standard `BufferedImage`. | [Reference](docs/REFERENCE.md) |
 
 ---
 
