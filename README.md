@@ -14,9 +14,9 @@
 
 For vision-guided automation, FastRobot seamlessly bridges with **[FastImage](https://github.com/andrestubbe/FastImage)** for zero-allocation SIMD image processing and partners with **[FastScreen](https://github.com/andrestubbe/FastScreen)**—the dedicated 240–2000 FPS DirectX DXGI desktop duplication engine—to provide a complete, ultra-fast robotics and automation stack.
 
-Watch Demo (YouTube) | Watch JMH Benchmark (YouTube)
+[**Watch Showcase Demo (YouTube)**](https://youtu.be/DWSC35M_mdI)
 
-[![FastRobot Showcase](docs/screenshot.png)](https://www.youtube.com/watch?v=BZsqQl7WqWk)
+[![FastRobot Showcase](docs/screenshot.png)](https://youtu.be/DWSC35M_mdI)
 
 ---
 
@@ -155,16 +155,16 @@ Benchmark.benchmarkFastRobotScreenDimensions  thrpt    3  18872.366          ops
 
 ## API Quick Reference
 
-| Method | Description | Docs |
-|---|---|---|
-| `mouseMove(x, y)` | Moves mouse cursor via native `SendInput`. | [Reference](docs/REFERENCE.md) |
-| `mousePress(btn)` / `mouseRelease(btn)` | Injects mouse button click events. | [Reference](docs/REFERENCE.md) |
-| `keyPress(code)` / `keyRelease(code)` | Injects keyboard scancodes. | [Reference](docs/REFERENCE.md) |
-| `getPixelColor(x, y)` | High-speed single pixel RGB query without full screen capture. | [Reference](docs/REFERENCE.md) |
-| `captureImage(rect)` | **FastImage Bridge:** Capture region directly to off-heap `FastImage`. | [Reference](docs/REFERENCE.md) |
-| `captureImage(x, y, w, h)` | **FastImage Bridge:** Capture with primitive coordinates to `FastImage`. | [Reference](docs/REFERENCE.md) |
-| `getFrameImage()` | **FastImage Bridge:** Wraps streaming frame into `FastImage`. | [Reference](docs/REFERENCE.md) |
-| `createScreenCapture(rect)` | Native screen capture to standard `BufferedImage`. | [Reference](docs/REFERENCE.md) |
+| Method | Return Type | Description | Docs |
+|:---|:---|:---|:---|
+| `mouseMove(x, y)` | `void` | Moves mouse cursor via native `SendInput`. | [Reference](docs/REFERENCE.md#mouse--keyboard-input) |
+| `mousePress(btn)` / `mouseRelease(btn)` | `void` | Injects mouse button click events. | [Reference](docs/REFERENCE.md#mouse--keyboard-input) |
+| `keyPress(code)` / `keyRelease(code)` | `void` | Injects keyboard scancodes. | [Reference](docs/REFERENCE.md#mouse--keyboard-input) |
+| `getPixelColor(x, y)` | `int` | High-speed single pixel RGB query without full screen capture. | [Reference](docs/REFERENCE.md#screen-capture) |
+| `captureImage(rect)` | `FastImage` | **FastImage Bridge:** Capture region directly to off-heap `FastImage`. | [Reference](docs/REFERENCE.md#fastimage-ecosystem-bridge) |
+| `captureImage(x, y, w, h)` | `FastImage` | **FastImage Bridge:** Capture with primitive coordinates to `FastImage`. | [Reference](docs/REFERENCE.md#fastimage-ecosystem-bridge) |
+| `getFrameImage()` | `FastImage` | **FastImage Bridge:** Wraps streaming frame into `FastImage`. | [Reference](docs/REFERENCE.md#fastimage-ecosystem-bridge) |
+| `createScreenCapture(rect)` | `BufferedImage` | Native screen capture to standard `BufferedImage`. | [Reference](docs/REFERENCE.md#screen-capture) |
 
 ---
 
@@ -241,20 +241,21 @@ Download the latest JARs directly to add them to your classpath:
 
 ## Documentation
 
-* **[COMPILE.md](docs/COMPILE.md)**: Full compilation guide (MSVC C++17 build chain + JNI Setup).
-* **[REFERENCE.md](docs/REFERENCE.md)**: Full API descriptions and method reference.
-* **[PHILOSOPHY.md](docs/PHILOSOPHY.md)**: The engineering rationale for zero-allocation performance.
-* **[ROADMAP.md](docs/ROADMAP.md)**: Future milestones and planned features.
+- **[COMPILE.md](docs/COMPILE.md)**: Full compilation guide (MSVC C++17 build chain + JNI Setup).
+- **[REFERENCE.md](docs/REFERENCE.md)**: Comprehensive API specification, robotics control, and pixel capture methods.
+- **[PHILOSOPHY.md](docs/PHILOSOPHY.md)**: The engineering rationale for zero-allocation automation performance.
+- **[ROADMAP.md](docs/ROADMAP.md)**: Planned milestone features and performance extensions.
+- **[CHANGELOG.md](docs/CHANGELOG.md)**: Complete version history and release notes.
 
 ---
 
 ## Platform Support
 
-| Platform      | Status             |
-|---------------|--------------------|
-| Windows 10/11 | ✅ Fully Supported  |
-| Linux         | 🚧 Planned         |
-| macOS         | 🚧 Planned         |
+| Platform | Architecture | Status | Driver / Subsystem |
+|:---|:---:|:---:|:---|
+| **Windows 10 / 11** | x64 | ✅ Fully Supported | Native Win32 `SendInput` & DXGI Desktop Duplication |
+| **Linux** | x64 / AArch64 | 🚧 Planned | `uinput` / `XTest` & PipeWire / Wayland Portal |
+| **macOS** | Apple Silicon / x64 | 🚧 Planned | `CGEventCreate` & ScreenCaptureKit / CoreGraphics |
 
 ---
 
@@ -266,13 +267,14 @@ MIT License — See [LICENSE](LICENSE) file for details.
 
 ## Related Projects
 
-- [FastScreen](https://github.com/andrestubbe/FastScreen) — High-Performance Native DXGI Screen Capture for Java (240–2000 FPS)
-- [FastImage](https://github.com/andrestubbe/FastImage) — Ultra-Fast Native SIMD Image Processing for Java
-- [FastCore](https://github.com/andrestubbe/FastCore) — Native Library Loader and Platform Utilities
-- [FastMouse](https://github.com/andrestubbe/FastMouse) — Native Mouse API for Java
-- [FastKeyboard](https://github.com/andrestubbe/FastKeyboard) — Native Windows RawInput API for Java
-- [FastOCR](https://github.com/andrestubbe/FastOCR) — Ultra-Fast Native OCR for Java
+- **[`FastCore`](https://github.com/andrestubbe/FastCore)** — Native Library Loader & JNI Utilities for Java
+- **[`FastScreen`](https://github.com/andrestubbe/FastScreen)** — High-Performance Native DXGI Screen Capture for Java (240–2000 FPS)
+- **[`FastImage`](https://github.com/andrestubbe/FastImage)** — Ultra-Fast Native SIMD Image Processing for Java
+- **[`FastMouse`](https://github.com/andrestubbe/FastMouse)** — Ultra-Low Latency Native RawInput Mouse Engine
+- **[`FastKeyboard`](https://github.com/andrestubbe/FastKeyboard)** — Ultra-Fast Native RawInput Keyboard Engine
+- **[`FastHotkey`](https://github.com/andrestubbe/FastHotkey)** — Low-Latency Global Hotkey API for Java
+- **[`FastOCR`](https://github.com/andrestubbe/FastOCR)** — Ultra-Fast Native OCR for Java
 
 ---
 
-**Part of the FastJava Ecosystem** — *Making the JVM faster. Small package. Maximum speed. Zero bloat. 🚀📋*
+**Part of the FastJava Ecosystem** — *Making the JVM faster.* 🚀
