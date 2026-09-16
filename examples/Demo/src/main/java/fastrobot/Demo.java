@@ -6,7 +6,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
-public class DesktopStreamDemo {
+public class Demo {
     private static FastRobot robot;
     private static JFrame frame;
     private static JLabel imageLabel;

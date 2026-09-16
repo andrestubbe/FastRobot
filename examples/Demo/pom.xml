@@ -1,21 +1,21 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>fastrobot.examples</groupId>
-    <artifactId>basic-usage</artifactId>
-    <version>0.1.0</version>
+    <groupId>com.github.andrestubbe</groupId>
+    <artifactId>fastrobot-demo</artifactId>
+    <version>0.1.1</version>
     <packaging>jar</packaging>
 
-    <name>FastRobot - Basic Usage Example</name>
-    <description>Minimal example showing FastRobot library usage</description>
+    <name>FastRobot Demo</name>
+    <description>Interactive desktop stream and automation demo for FastRobot</description>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -31,9 +31,21 @@
         <dependency>
             <groupId>com.github.andrestubbe</groupId>
             <artifactId>FastRobot</artifactId>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </dependency>
-        <!-- FastCore (required by FastRobot) -->
+        <!-- FastScreen -->
+        <dependency>
+            <groupId>com.github.andrestubbe</groupId>
+            <artifactId>FastScreen</artifactId>
+            <version>0.1.4</version>
+        </dependency>
+        <!-- FastImage -->
+        <dependency>
+            <groupId>com.github.andrestubbe</groupId>
+            <artifactId>FastImage</artifactId>
+            <version>0.1.2</version>
+        </dependency>
+        <!-- FastCore -->
         <dependency>
             <groupId>com.github.andrestubbe</groupId>
             <artifactId>FastCore</artifactId>
@@ -44,11 +56,20 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <mainClass>fastrobot.DesktopStreamDemo</mainClass>
+                    <mainClass>fastrobot.Demo</mainClass>
                 </configuration>
             </plugin>
         </plugins>

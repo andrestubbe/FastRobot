@@ -64,6 +64,7 @@ public class Demo {
 - [Real-World Use Cases](#real-world-use-cases)
 - [Performance Benchmarks](#performance-benchmarks)
 - [API Quick Reference](#api-quick-reference)
+- [Technical Demos & Benchmarks](#technical-demos--benchmarks)
 - [Installation](#installation)
 - [Documentation](#documentation)
 - [Platform Support](#platform-support)
@@ -165,6 +166,15 @@ Benchmark.benchmarkFastRobotScreenDimensions  thrpt    3  18872.366          ops
 | `captureImage(x, y, w, h)` | `FastImage` | **FastImage Bridge:** Capture with primitive coordinates to `FastImage`. | [Reference](docs/REFERENCE.md#fastimage-ecosystem-bridge) |
 | `getFrameImage()` | `FastImage` | **FastImage Bridge:** Wraps streaming frame into `FastImage`. | [Reference](docs/REFERENCE.md#fastimage-ecosystem-bridge) |
 | `createScreenCapture(rect)` | `BufferedImage` | Native screen capture to standard `BufferedImage`. | [Reference](docs/REFERENCE.md#screen-capture) |
+
+---
+
+## Technical Demos & Benchmarks
+
+| Case | Java Example | Launcher | Description |
+|:---|:---|:---|:---|
+| **Interactive Desktop Stream** | [Demo.java](examples/Demo/src/main/java/fastrobot/Demo.java) | `run-demo.bat` | Real-time high-FPS streaming desktop view and automation harness. |
+| **JMH Microbenchmark Suite** | [Benchmark.java](examples/Benchmark/src/main/java/fastrobot/benchmark/Benchmark.java) | `run-benchmark.bat` | Microbenchmark suite measuring pixel color query throughput vs `java.awt.Robot`. |
 
 ---
 
