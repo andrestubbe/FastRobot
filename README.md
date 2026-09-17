@@ -88,6 +88,13 @@ Standard Java `java.awt.Robot` was designed in the late 1990s and has severe lim
 - **Microsecond Color Probing**: `getPixelColor()` queries screen pixels up to **2× faster** than AWT Robot without locking or copying full screen surfaces.
 - **Clean Decoupling with FastScreen**: While FastRobot provides built-in GDI capture convenience, high-throughput DirectX 11 / DXGI Desktop Duplication (240–2000 FPS) is delegated to **[FastScreen](https://github.com/andrestubbe/FastScreen)**, giving you the fastest possible screen-reading pipeline in the JVM.
 
+| Feature | java.awt.Robot | Python PyAutoGUI | FastRobot |
+|:---|:---|:---|:---|
+| **Input Injection** | AWT EDT queue (5–15 ms jitter)| High Python wrapper latency | **Direct Win32 `SendInput` (< 0.1 ms)** |
+| **Screen Capture** | GDI bitmap copy to heap | Slow PIL / Pillow heap churn | **Direct off-heap `FastImage` buffer** |
+| **Pixel Color Probe** | Heavy synchronous screen lock| Slow pixel array lookup | **Direct Win32 `GetPixel` in µs** |
+| **Garbage Collection** | ~8 MB heap per 1080p frame | Python GIL memory overhead | **Zero GC hot path** |
+
 ---
 
 ## Ecosystem Architecture
